@@ -16,6 +16,10 @@ import MainLayout from '../Layouts/MainLayout'
 import { createBrowserRouter } from 'react-router'
 import Privateroute from './Privateroute'
 import MyOrders from '../Pages/Dashboard/Customer/MyOrders'
+import AboutUs from '../Pages/AboutUs'
+import ContactUs from '../Pages/Contact'
+import Details from '../Pages/Details'
+import Payment from '../Pages/Payment'
 
 
 export const router = createBrowserRouter([
@@ -28,13 +32,25 @@ export const router = createBrowserRouter([
         path: '/',
         element: <Home />,
       },
-      // {
-      //   path: '/plant/:id',
-      //   element: <PlantDetails />,
-      // },
+      {
+        path: '/scholarship/:id',
+        element: <Details />,
+      },
         {
         path: '/allscholarships',
         element:<Allscholarships />
+      },
+        {
+        path: '/aboutus',
+        element:<AboutUs />
+      },
+        {
+        path: '/payment',
+        element:<Payment />
+      },
+        {
+        path: '/contactus',
+        element:<ContactUs />
       },
     ],
   },
