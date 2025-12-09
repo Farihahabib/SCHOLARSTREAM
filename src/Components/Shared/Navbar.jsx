@@ -26,7 +26,7 @@ const Navbar = () => {
               </div>
             </Link>
             <div className='flex gap-2'>
-            <MyLink to='/'>
+            <MyLink to='/' className="sm:hidden  lg:visible">
             Home
             </MyLink>
             <MyLink to='/allscholarships'>
