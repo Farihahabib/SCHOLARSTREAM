@@ -6,7 +6,7 @@ const Footer = () => {
   <nav className="grid grid-flow-col  gap-4">
     <MyLink to='aboutus' className="link link-hover text-white ">About us</MyLink>
     <MyLink to='contactus' className="link link-hover text-white ">Contact</MyLink>
-    <MyLink to='allscholarships' className="link link-hover text-white ">All Scholarships</MyLink>
+   
 
   </nav>
   <nav>

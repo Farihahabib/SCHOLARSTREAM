@@ -5,13 +5,13 @@ import SignUp from '../Pages/Signup/SignUp'
 import Allscholarships from '../Pages/Allscholarships'
 import PrivateRoute from './Privateroute'
 import DashboardLayout from '../Layouts/DashboardLayout'
-// import AddPlant from '../Pages/Dashboard/Seller/AddPlant'
+import AddScholarship from '../Pages/Dashboard/Admin/Addscholarship'
 import ManageUsers from '../pages/Dashboard/Admin/ManageUsers'
 import Profile from '../pages/Dashboard/Common/Profile'
 import Statistics from '../pages/Dashboard/Common/Statistics'
 import MainLayout from '../Layouts/MainLayout'
-// // import MyInventory from '../pages/Dashboard/Seller/MyInventory'
-// // import ManageOrders from '../pages/Dashboard/Seller/ManageOrders'
+import MyInventory from '../pages/Dashboard/Seller/MyInventory'
+import ManageOrders from '../pages/Dashboard/Seller/ManageOrders'
 
 import { createBrowserRouter } from 'react-router'
 import Privateroute from './Privateroute'
@@ -73,22 +73,22 @@ export const router = createBrowserRouter([
           </Privateroute>
         ),
       },
-      // {
-      //   path: 'add-plant',
-      //   element: (
-      //     <PrivateRoute>
-      //       <AddPlant />
-      //     </PrivateRoute>
-      //   ),
-      // },
-      // {
-      //   path: 'my-inventory',
-      //   element: (
-      //     <PrivateRoute>
-      //       <MyInventory />
-      //     </PrivateRoute>
-      //   ),
-      // },
+      {
+        path: 'add-scholarship',
+        element: (
+          <PrivateRoute>
+            <AddScholarship />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'my-inventory',
+        element: (
+          <PrivateRoute>
+            <MyInventory />
+          </PrivateRoute>
+        ),
+      },
       {
         path: 'manage-users',
         element: (
@@ -113,10 +113,10 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // {
-      //   path: 'manage-orders',
-      //   element: <ManageOrders />,
-      // },
+      {
+        path: 'manage-orders',
+        element: <ManageOrders />,
+      },
   
     ],
   },

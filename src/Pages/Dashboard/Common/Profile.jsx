@@ -1,15 +1,15 @@
 import useAuth from '../../../Hooks/useAuth'
-// import coverImg from '../../../assets/images/cover.jpg'
+import coverImg from '../../../assets/logo-flat.png'
 
 const Profile = () => {
   const { user } = useAuth()
 
   return (
     <div className='flex justify-center items-center h-screen'>
-      <div className='bg-white shadow-lg rounded-2xl md:w-4/5 lg:w-3/5'>
+      <div className='bg-white shadow-lg rounded-2xl md:w-4/5 lg:w-3/5 mt-9'>
         <img
           alt='cover photo'
-          src=''
+          src={coverImg}
           className='w-full mb-4 rounded-t-lg h-56'
         />
         <div className='flex flex-col items-center justify-center p-4 -mt-16'>
@@ -21,30 +21,30 @@ const Profile = () => {
             />
           </a>
 
-          <p className='p-2 px-4 text-xs text-white bg-lime-500 rounded-full'>
-            Customer
+          <p className='p-2 px-4 text-xs text-white bg-blue-950 rounded-full'>
+            Students
           </p>
           <p className='mt-2 text-xl font-medium text-gray-800 '>
             User Id: {user?.uid}
           </p>
           <div className='w-full p-2 mt-4 rounded-lg'>
-            <div className='flex flex-wrap items-center justify-between text-sm text-gray-600 '>
-              <p className='flex flex-col'>
+            <div className='flex flex-col items-center justify-between text-sm text-gray-600 '>
+              <p className='flex flex-col text-center'>
                 Name
-                <span className='font-bold text-gray-600 '>
+                <span className='font-bold text-gray-600 mb-2'>
                   {user?.displayName}
                 </span>
               </p>
-              <p className='flex flex-col'>
+              <p className='flex flex-col text-center'>
                 Email
-                <span className='font-bold text-gray-600 '>{user?.email}</span>
+                <span className='font-bold text-gray-600 mb-3 '>{user?.email}</span>
               </p>
 
-              <div>
-                <button className='bg-lime-500  px-10 py-1 rounded-lg text-white cursor-pointer hover:bg-lime-800 block mb-1'>
+              <div className='flex justify-between items-center gap-5 '>
+                <button className='btn hover px-10 py-2 rounded-lg text-white cursor-pointerblock mb-1'>
                   Update Profile
                 </button>
-                <button className='bg-lime-500 px-7 py-1 rounded-lg text-white cursor-pointer hover:bg-lime-800'>
+                <button className='btn hover px-7 py-2 rounded-lg text-white cursor-pointerblock mb-1'>
                   Change Password
                 </button>
               </div>

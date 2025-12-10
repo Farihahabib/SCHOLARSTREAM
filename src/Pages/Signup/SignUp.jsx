@@ -4,8 +4,9 @@ import useAuth from '../../Hooks/useAuth'
 import { toast } from 'react-hot-toast'
 import { TbFidgetSpinner } from 'react-icons/tb'
 import { FaSpinner } from 'react-icons/fa'
-import { useForm } from 'react-hook-form'
-import  { Axios } from 'axios'
+import { useForm, Watch } from 'react-hook-form'
+import  axios, { Axios } from 'axios'
+import { imageUpload } from '../../utils'
 const SignUp = () => {
   const { createUser, updateUserProfile, signInWithGoogle, loading } = useAuth()
   const navigate = useNavigate()
@@ -15,33 +16,26 @@ const SignUp = () => {
  const {
     register,
     handleSubmit,
-    watch,
+    // watch,
     formState: { errors },
   } = useForm()
   console.log(errors)
-  const name1 = watch("name")
-  console.log(name1)
   const onSubmit = async data => {
     const {name,image,email,password}= data;
 
     const imageFile = image[0];
-const formData = new FormData()
-formData.append('image',imageFile)
+    console.log(imageFile)
+
  try {
-  //image Upload
-const { data: imgbbResponse } = await Axios.post(
- `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_FIREBASE_API_KEY}`,
- formData
- )
- const imageUrl = imgbbResponse.data.url
-  console.log(data)
+
+  const imageURL = await imageUpload(imageFile)
      //2. User Registration
      const result = await createUser(email, password)
 
      //3. Save username & profile photo
      await updateUserProfile(
        name,
-      imageUrl
+      imageURL
     )
 
 

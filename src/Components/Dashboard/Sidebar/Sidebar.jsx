@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
-
-import logo from '../../../assets/images/logo-flat.png'
+import useAuth from '../../../Hooks/useAuth'
+import logo from '../../../assets/logo-flat.png'
 // Icons
 import { GrLogout } from 'react-icons/gr'
 import { FcSettings } from 'react-icons/fc'
@@ -12,8 +12,7 @@ import { BsGraphUp } from 'react-icons/bs'
 import MenuItem from './Menu/MenuItem'
 import AdminMenu from './Menu/AdminMenu'
 import SellerMenu from './Menu/SellerMenu'
-import CustomerMenu from './Menu/CustomerMenu'
-import useAuth from '../../../Hooks/useAuth'
+import StudentsMenu from './Menu/StudentsMenu'
 
 const Sidebar = () => {
   const { logOut } = useAuth()
@@ -55,8 +54,9 @@ const Sidebar = () => {
           <div>
             {/* Logo */}
             <div className='w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-lime-100 mx-auto'>
-              <Link to='/'>
-                <img src={logo} alt='logo' width='100' height='100' />
+              <Link to='/' className='flex gap-2 justify-center items-center'>
+                <img src='/logo.png' alt='logo' width='50' height='50' className='h-full w-50% rounded-5xl' />
+                <span className='font-bold text-blue-900'>ScholarStream</span>
               </Link>
             </div>
           </div>
@@ -72,7 +72,7 @@ const Sidebar = () => {
                 address='/dashboard'
               />
               {/* Role-Based Menu */}
-              <CustomerMenu />
+              <StudentsMenu />
               <SellerMenu />
               <AdminMenu />
             </nav>
@@ -103,3 +103,4 @@ const Sidebar = () => {
 }
 
 export default Sidebar
+
