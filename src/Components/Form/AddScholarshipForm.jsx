@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query"
 import ErrorPage from "../../Pages/ErrorPage"
 import LoadingSpinner from "../Shared/LoadingSpinner"
 import toast from "react-hot-toast"
+import { FaSpinner } from "react-icons/fa"
 
 const AddScholarshipForm = () => {
 //useMutation hook use here
