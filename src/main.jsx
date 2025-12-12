@@ -8,16 +8,16 @@ import { Toaster } from 'react-hot-toast'
  import {
   QueryClient,
   QueryClientProvider,
-  useQuery,
+  
 } from '@tanstack/react-query'   
 const queryClient = new QueryClient()
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <div>
    <QueryClientProvider client={queryClient}>
      <AuthProvider>
       <RouterProvider router={router} />
       <Toaster position='top-right' reverseOrder={false} />
     </AuthProvider>
    </QueryClientProvider>
-  </StrictMode>
+  </div>
 )

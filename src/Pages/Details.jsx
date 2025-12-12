@@ -77,8 +77,8 @@ console.log(scholarship)
 
         {/* Apply Button */}
         <div className="mt-8">
-          <MyLink to='/payment' className="btn hover text-white px-8 py-2 rounded-lg font-semibold transition hover:bg-blue-800">
-            Apply Now
+          <MyLink to={`/payment/${id}`} scholarship={scholarship} id={id} className="btn hover text-white px-8 py-2 rounded-lg font-semibold transition hover:bg-blue-800">
+            Apply For Scholarship
           </MyLink >
         </div>
       </div>

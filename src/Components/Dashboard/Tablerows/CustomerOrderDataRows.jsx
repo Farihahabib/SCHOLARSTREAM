@@ -1,57 +1,100 @@
-import React, { useState } from 'react';
-// import { useState } from 'react'
-// import DeleteModal from '../../Modal/DeleteModal'
+const CustomerOrderDataRows = ({ application }) => {
+  const {
+    universityName,
+ subjectCategory
+,            // subject category
+    country,
+    city,
+    status,
+    applicationFees,
+  
+  } = application;
 
+  return (
+    <tr className="border-b border-gray-200 hover:bg-gray-100 my-3">
+      {/* Scholarship / University Name */}
+      <td>{universityName}</td>
 
+      {/* University Address */}
+      <td className="flex flex-col ">{city}, {country}</td>
 
-const CustomerOrderDataRows = () => {
-      let [isOpen, setIsOpen] = useState(false)
-//   const closeModal = () => setIsOpen(false)
-    return (
-          <tr>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <div className='flex items-center'>
-          <div className='shrink-0'>
-            <div className='block relative'>
-              <img
-                alt='profile'
-                src='https://i.ibb.co.com/rMHmQP2/money-plant-in-feng-shui-brings-luck.jpg'
-                className='mx-auto object-cover rounded h-10 w-15 '
-              />
-            </div>
-          </div>
-        </div>
-      </td>
+      {/* Subject Category */}
+      <td>{subjectCategory
+}</td>
 
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900'>Money Plant</p>
-      </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900'>Indoor</p>
-      </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900'>$120</p>
-      </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900'>5</p>
-      </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900'>Pending</p>
-      </td>
+      {/* Application Fees */}
+      <td>${applicationFees}</td>
 
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <button
-          onClick={() => setIsOpen(true)}
-          className='relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-lime-900 leading-tight'
+      {/* Status */}
+      <td>
+        <span
+          className={`px-3 py-1 rounded-full text-white ${
+            status === "Approved"
+              ? "bg-green-600"
+              : status === "Rejected"
+              ? "bg-red-600"
+              : "bg-yellow-600"
+          }`}
         >
-          <span className='absolute cursor-pointer inset-0 bg-red-200 opacity-50 rounded-full'></span>
-          <span className='relative cursor-pointer'>Cancel</span>
-        </button>
-{/* 
-        <DeleteModal isOpen={isOpen} closeModal={closeModal} /> */}
+          {status}
+        </span>
       </td>
+
+      {/* Actions */}
+   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+
+  {/* DETAILS BUTTON — always visible */}
+  <button
+    onClick={() => handleOpenDetails(application)}
+    className="bg-blue-600 text-white px-3 py-1 rounded mr-2"
+  >
+    Details
+  </button>
+
+  {/* EDIT BUTTON — only if status === "pending" */}
+  {application.status === "pending" && (
+    <button
+      onClick={() => handleEdit(application)}
+      className="bg-green-600 text-white px-3 py-1 rounded mr-2"
+    >
+      Edit
+    </button>
+  )}
+
+  {/* PAY BUTTON — only if pending AND payment === unpaid */}
+  {application.status === "pending" && application.paymentStatus === "unpaid" && (
+    <button
+      onClick={() => handlePayment(application)}
+      className="bg-purple-600 text-white px-3 py-1 rounded mr-2"
+    >
+      Pay
+    </button>
+  )}
+
+  {/* DELETE BUTTON — only if pending */}
+  {application.status === "pending" && (
+    <button
+      onClick={() => handleDelete(application._id)}
+      className="bg-red-600 text-white px-3 py-1 rounded mr-2"
+    >
+      Delete
+    </button>
+  )}
+
+  {/* ADD REVIEW — only if completed */}
+  {application.status === "completed" && (
+    <button
+      onClick={() => handleOpenReviewModal(application)}
+      className="bg-yellow-600 text-white px-3 py-1 rounded"
+    >
+      Add Review
+    </button>
+  )}
+
+</td>
+
     </tr>
-    );
+  );
 };
 
 export default CustomerOrderDataRows;

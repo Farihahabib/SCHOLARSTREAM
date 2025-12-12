@@ -1,3 +1,136 @@
+// import React, { useState } from 'react';
+// import Container from '../Components/Shared/Container.jsx';
+// import axios from 'axios';
+// import { useQuery } from '@tanstack/react-query';
+// import Card from '../Components/Home/Card.jsx';
+
+// const Allscholarships = () => {
+//   const [search, setSearch] = useState('');
+//   const [countryFilter, setCountryFilter] = useState('');
+//   const [sortBy, setSortBy] = useState('');
+//   const [order, setOrder] = useState('asc');
+//   const [page, setPage] = useState(1);
+//   const limit = 8;
+
+//   const { data, isLoading, isError } = useQuery({
+//     queryKey: ['scholarships', search, countryFilter, sortBy, order, page],
+//     queryFn: async () => {
+//       const params = new URLSearchParams();
+//       if (search.trim()) params.append('search', search.trim());
+//       if (countryFilter) params.append('country', countryFilter);
+//       if (sortBy) params.append('sortBy', sortBy);
+//       if (order) params.append('order', order);
+//       params.append('page', page);
+//       params.append('limit', limit);
+
+//       const res = await axios.get(`${import.meta.env.VITE_API_URL}/scholarships?${params.toString()}`);
+//       return res.data;
+//     },
+//     keepPreviousData: true,
+//   });
+
+//   if (isLoading) return <p>Loading scholarships...</p>;
+//   if (isError) return <p>Error loading scholarships.</p>;
+
+//   const { scholarships = [], total = 0, pages = 1 } = data || [];
+//   const uniqueCountries = [...new Set(scholarships.map(s => s.country))];
+
+//   return (
+//     <Container>
+//       <h2 className="text-center font-semibold text-blue-900 border-b-2 mx-auto w-30">All Scholarships</h2>
+
+//       {/* Filters */}
+//       <div className="flex flex-col md:flex-row justify-between gap-4 my-5">
+//         <input
+//           type="text"
+//           placeholder="Search by University Name"
+//           value={search}
+//           onChange={e => setSearch(e.target.value)}
+//           className="input input-bordered w-full"
+//         />
+
+//         <select
+//           className="select select-bordered w-full md:w-1/4"
+//           value={countryFilter}
+//           onChange={e => setCountryFilter(e.target.value)}
+//         >
+//           <option value="">Filter by Country</option>
+//           {uniqueCountries.map((c, idx) => <option key={idx} value={c}>{c}</option>)}
+//         </select>
+
+//         <select
+//           className="select select-bordered w-full md:w-1/4"
+//           value={sortBy}
+//           onChange={e => setSortBy(e.target.value)}
+//         >
+//           <option value="">Sort By</option>
+//           <option value="applicationFees">Application Fees</option>
+//           <option value="postDate">Post Date</option>
+//         </select>
+
+//         <select
+//           className="select select-bordered w-full md:w-1/4"
+//           value={order}
+//           onChange={e => setOrder(e.target.value)}
+//         >
+//           <option value="asc">Ascending</option>
+//           <option value="desc">Descending</option>
+//         </select>
+//       </div>
+
+//       {/* Scholarships Grid */}
+//       {scholarships.length > 0 ? (
+//         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-9 mt-15">
+//           {scholarships.map(sch => <Card key={sch._id} scholarship={sch} />)}
+//         </div>
+//       ) : <p className="text-center text-gray-500 my-10">No Scholarships Found</p>}
+
+//       {/* Pagination */}
+//       <div className="flex justify-center gap-2 my-6">
+//         {[...Array(pages)].map((_, idx) => (
+//           <button
+//             key={idx}
+//             className={`btn btn-sm ${page === idx + 1 ? 'btn-primary' : 'btn-outline'}`}
+//             onClick={() => setPage(idx + 1)}
+//           >
+//             {idx + 1}
+//           </button>
+//         ))}
+//       </div>
+//     </Container>
+//   );
+// };
+
+// export default Allscholarships;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React from 'react';
 import Container from '../Components/Shared/Container.jsx';
 import axios from 'axios';

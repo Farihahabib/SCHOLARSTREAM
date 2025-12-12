@@ -29,7 +29,7 @@ return result.data
 <Container>
  {
       scholarships && scholarships.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4  container mb-9 mt-15 mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4  container mb-9 mt-15 mx-auto">
           {scholarships.slice(0, 6).map((scholarship) => (
             <Card key={scholarship._id} scholarship={scholarship} />
           ))}

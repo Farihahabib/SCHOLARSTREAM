@@ -12,7 +12,7 @@ const StudentsMenu = () => {
 
   return (
     <>
-      <MenuItem icon={BsFingerprint} label='My Orders' address='my-orders' />
+      <MenuItem icon={BsFingerprint} label='My Applications' address='my-applications' />
 
       <div
         onClick={() => setIsOpen(true)}

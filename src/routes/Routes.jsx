@@ -15,11 +15,13 @@ import ManageOrders from '../pages/Dashboard/Seller/ManageOrders'
 
 import { createBrowserRouter } from 'react-router'
 import Privateroute from './Privateroute'
-import MyOrders from '../Pages/Dashboard/Customer/MyOrders'
+import MyOrders from '../Pages/Dashboard/Customer/MyApplications'
 import AboutUs from '../Pages/AboutUs'
 import ContactUs from '../Pages/Contact'
 import Details from '../Pages/Details'
 import Payment from '../Pages/Payment'
+import Paymentsuccess from '../Pages/paymentsuccess'
+import MyApplications from '../Pages/Dashboard/Customer/MyApplications'
 
 
 export const router = createBrowserRouter([
@@ -36,6 +38,13 @@ export const router = createBrowserRouter([
         path: '/scholarships/:id',
         element: <Details />,
       },
+      {
+          path:"/payment/:id",
+         element: <Payment />,
+        },
+      {  path:"payment-success",
+         element: <Paymentsuccess />},
+    
         {
         path: '/allscholarships',
         element:<Allscholarships />
@@ -44,10 +53,7 @@ export const router = createBrowserRouter([
         path: '/aboutus',
         element:<AboutUs />
       },
-        {
-        path: '/payment',
-        element:<Payment />
-      },
+      
         {
         path: '/contactus',
         element:<ContactUs />
@@ -106,10 +112,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'my-orders',
+        path: 'my-applications',
         element: (
           <PrivateRoute>
-            <MyOrders />
+            <MyApplications />
           </PrivateRoute>
         ),
       },
