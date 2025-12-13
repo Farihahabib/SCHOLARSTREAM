@@ -10,18 +10,23 @@ import ManageUsers from '../pages/Dashboard/Admin/ManageUsers'
 import Profile from '../pages/Dashboard/Common/Profile'
 import Statistics from '../pages/Dashboard/Common/Statistics'
 import MainLayout from '../Layouts/MainLayout'
-import MyInventory from '../pages/Dashboard/Seller/MyInventory'
-import ManageOrders from '../pages/Dashboard/Seller/ManageOrders'
+
+
 
 import { createBrowserRouter } from 'react-router'
 import Privateroute from './Privateroute'
-import MyOrders from '../Pages/Dashboard/Customer/MyApplications'
+
 import AboutUs from '../Pages/AboutUs'
 import ContactUs from '../Pages/Contact'
 import Details from '../Pages/Details'
 import Payment from '../Pages/Payment'
 import Paymentsuccess from '../Pages/paymentsuccess'
 import MyApplications from '../Pages/Dashboard/Customer/MyApplications'
+import ManageApplys from '../Pages/Dashboard/Moderator/ManageApplys'
+import ManageScholarships from '../Pages/Dashboard/Admin/ManageScholarships'
+import AllReviews from '../Pages/Dashboard/Moderator/AllReviews'
+import MyReviews from '../Pages/Dashboard/Customer/MyReviews'
+import Analytics from '../Pages/Dashboard/Admin/Analytics'
 
 
 export const router = createBrowserRouter([
@@ -88,10 +93,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'my-inventory',
+        path: 'manage-scholarship',
         element: (
           <PrivateRoute>
-            <MyInventory />
+            <ManageScholarships />
           </PrivateRoute>
         ),
       },
@@ -100,6 +105,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ManageUsers />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'analytics',
+        element: (
+          <PrivateRoute>
+            <Analytics />
           </PrivateRoute>
         ),
       },
@@ -120,8 +133,16 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'manage-orders',
-        element: <ManageOrders />,
+        path: 'manage-applications',
+        element: <ManageApplys />,
+      },
+      {
+        path: 'all-reviews',
+        element: <AllReviews />,
+      },
+      {
+        path: 'my-reviews',
+        element: <MyReviews />,
       },
   
     ],

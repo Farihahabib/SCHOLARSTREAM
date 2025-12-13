@@ -7,9 +7,11 @@ import ErrorPage from "../../Pages/ErrorPage"
 import LoadingSpinner from "../Shared/LoadingSpinner"
 import toast from "react-hot-toast"
 import { FaSpinner } from "react-icons/fa"
+import useAuth from "../../Hooks/useAuth"
 
 const AddScholarshipForm = () => {
 //useMutation hook use here
+const {user } = useAuth();
 const {isPending,isError,mutateAsync} = useMutation({
   mutationFn: async (payload)=>
  await axios.post(`${import.meta.env.VITE_API_URL}/scholarships`,payload
@@ -55,7 +57,13 @@ const {
       serviceCharge:Number(serviceCharge),
       deadline,
       postDate,
-      userEmail} 
+      userEmail,
+      moderator: {
+        image:user?.photoURL || '',
+        name:user?.displayName || '',
+        email:user?.email || '',
+      }      
+    } 
           await mutateAsync(scholarshipData)
        reset()
             }catch(err){

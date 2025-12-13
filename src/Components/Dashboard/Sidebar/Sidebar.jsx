@@ -11,7 +11,7 @@ import { BsGraphUp } from 'react-icons/bs'
 // User Menu
 import MenuItem from './Menu/MenuItem'
 import AdminMenu from './Menu/AdminMenu'
-import SellerMenu from './Menu/SellerMenu'
+import SellerMenu from './Menu/ModeratorMenu'
 import StudentsMenu from './Menu/StudentsMenu'
 
 const Sidebar = () => {

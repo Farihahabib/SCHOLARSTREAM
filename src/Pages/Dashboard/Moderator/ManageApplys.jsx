@@ -1,6 +1,28 @@
-import PlantDataRow from '../../../components/Dashboard/TableRows/PlantDataRow'
+import axios from 'axios'
+import SellerOrderDataRow from '../../../Components/Dashboard/Tablerows/ModeratorOrderDataRow'
+import useAuth from '../../../Hooks/useAuth'
+import { useQuery } from '@tanstack/react-query'
+import LoadingSpinner from '../../../components/Shared/LoadingSpinner'
+import ModeratorOrderDataRow from '../../../Components/Dashboard/Tablerows/ModeratorOrderDataRow'
 
-const MyInventory = () => {
+const ManageApplys = () => {
+//      const {data: scholarships=[],isLoading,isError} =useQuery({
+//       queryKey: ['scholarships'],
+//       queryFn: async () =>{
+// const result = await axios(`${import.meta.env.VITE_API_URL}/scholarships` )
+// return result.data
+//       } 
+//     })
+  const{user}=useAuth()
+    const {data:applications=[],isLoading,isError} =useQuery({
+      queryKey: ['applications'],
+      queryFn: async () =>{
+     const result = await axios(`${import.meta.env.VITE_API_URL}/applications` )
+     console.log(result.data)
+      return result.data
+      }
+  })
+  if(isLoading) return <LoadingSpinner />
   return (
     <>
       <div className='container mx-auto px-4 sm:px-8'>
@@ -14,50 +36,53 @@ const MyInventory = () => {
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                     >
-                      Image
+                      Applicant Name
                     </th>
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                     >
-                      Name
+                      Applicant Email
                     </th>
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                     >
-                      Category
+                      University Name
+                    </th>
+                
+                    <th
+                      scope='col'
+                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                    >
+                      Application feedback
                     </th>
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                     >
-                      Price
-                    </th>
-                    <th
-                      scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                    >
-                      Quantity
+                      Payment Status
                     </th>
 
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                     >
-                      Delete
-                    </th>
-                    <th
-                      scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                    >
-                      Update
+                      Action
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  <PlantDataRow />
-                </tbody>
+               
+ {applications && applications.length > 0 ?(
+
+  <tbody>
+ {applications.map((application) => (
+                   <ModeratorOrderDataRow
+                      key={application._id}
+                    application={application}  />))}
+          </tbody>): null}
+
+             
               </table>
             </div>
           </div>
@@ -67,4 +92,4 @@ const MyInventory = () => {
   )
 }
 
-export default MyInventory
+export default ManageApplys

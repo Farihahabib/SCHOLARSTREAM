@@ -1,37 +1,82 @@
+import { useState } from "react";
+import DeleteModal from "../../Modal/DeleteModal";
+import axios from "axios";
+import toast from "react-hot-toast";
+
 const CustomerOrderDataRows = ({ application }) => {
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
+  const [rating, setRating] = useState("");
+  const [comment, setComment] = useState("");
+
+
   const {
+    _id,
+    studentName,
+    studentEmail,
     universityName,
- subjectCategory
-,            // subject category
+    subjectCategory,
     country,
     city,
     status,
     applicationFees,
-  
+    paymentStatus, // "paid" | "unpaid"
   } = application;
 
+
+  const handleReviewSubmit = async (e) => {
+  e.preventDefault();
+  const reviewData = {
+    applicationId: _id,
+    studentName,
+    studentEmail,
+    universityName,
+    rating: Number(rating),
+    comment,
+    applicationStatus: status,
+    createdAt: new Date(),
+  };
+ try {
+    const result = await axios.post(
+      `${import.meta.env.VITE_API_URL}/reviews`,
+      reviewData
+    );
+
+    setIsReviewOpen(false);
+    setRating("");
+    setComment("");
+    toast.success("Review submitted successfully!");
+  } catch (error) {
+    console.error(error);
+    if (error.response && error.response.status === 400) {
+      toast.error(  "Review already added!");
+    } else {
+      toast.error("Failed to submit review. Please try again.");
+    }
+  }
+  }
   return (
-    <tr className="border-b border-gray-200 hover:bg-gray-100 my-3">
-      {/* Scholarship / University Name */}
+    <tr className="border-b border-gray-200 hover:bg-gray-100">
+      {/* University Name */}
       <td>{universityName}</td>
 
-      {/* University Address */}
-      <td className="flex flex-col ">{city}, {country}</td>
+      {/* Address */}
+      <td>{city}, {country}</td>
 
-      {/* Subject Category */}
-      <td>{subjectCategory
-}</td>
+      {/* Subject */}
+      <td>{subjectCategory}</td>
 
-      {/* Application Fees */}
+      {/* Fees */}
       <td>${applicationFees}</td>
 
       {/* Status */}
       <td>
         <span
           className={`px-3 py-1 rounded-full text-white ${
-            status === "Approved"
+            status === "approved"
               ? "bg-green-600"
-              : status === "Rejected"
+              : status === "rejected"
               ? "bg-red-600"
               : "bg-yellow-600"
           }`}
@@ -41,58 +86,131 @@ const CustomerOrderDataRows = ({ application }) => {
       </td>
 
       {/* Actions */}
-   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+      <td className="space-x-2">
 
-  {/* DETAILS BUTTON — always visible */}
-  <button
-    onClick={() => handleOpenDetails(application)}
-    className="bg-blue-600 text-white px-3 py-1 rounded mr-2"
-  >
-    Details
-  </button>
+        {/* DETAILS */}
+        <button
+          onClick={() => setIsDetailsOpen(true)}
+          className="btn btn-xs bg-blue-500 text-white"
+        >
+          Details
+        </button>
 
-  {/* EDIT BUTTON — only if status === "pending" */}
-  {application.status === "pending" && (
+        {/* EDIT */}
+        {status === "pending" && (
+          <button className="btn btn-xs bg-indigo-500 text-white">
+            Edit
+          </button>
+        )}
+
+        {/* PAY */}
+        {status === "pending" && paymentStatus === "unpaid" && (
+          <button className="btn btn-xs bg-green-500 text-white">
+            Pay
+          </button>
+        )}
+
+        {/* DELETE */}
+        {status === "pending" && (
+          <>
+            <button
+              onClick={() => setIsDeleteOpen(true)}
+              className="btn btn-xs bg-red-500 text-white"
+            >
+              Delete
+            </button>
+            <DeleteModal
+              isOpen={isDeleteOpen}
+              closeModal={() => setIsDeleteOpen(false)}
+            />
+          </>
+        )}
+
+        {/* ADD REVIEW */}
+        {status === "Completed" && (
+          <button
+            onClick={() => setIsReviewOpen(true)}
+            className="btn btn-xs bg-yellow-500 text-white"
+          >
+            Add Review
+          </button>
+        )}
+      </td>
+
+      {/* DETAILS MODAL */}
+      {isDetailsOpen && (
+        <dialog className="modal modal-open">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg mb-2">Application Details</h3>
+            <p><strong>StudentEmail:</strong>{studentEmail}</p>
+            <p><strong>StudentName:</strong>{studentName}</p>
+            <p><strong>University:</strong> {universityName}</p>
+            <p><strong>Subject:</strong> {subjectCategory}</p>
+            <p><strong>Location:</strong> {city}, {country}</p>
+            <p><strong>Status:</strong> {status}</p>
+            <p><strong>Fees:</strong> ${applicationFees}</p>
+
+            <div className="modal-action">
+              <button
+                className="btn"
+                onClick={() => setIsDetailsOpen(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </dialog>
+      )}
+
+      {/* REVIEW MODAL */}
+      {isReviewOpen && (
+        <dialog className="modal modal-open">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg mb-3">Add Review</h3>
+
+           <form onSubmit={handleReviewSubmit}>
+  {/* Rating */}
+  <div className="mb-3">
+    <label className="block mb-1">Rating (1–5)</label>
+    <input
+      type="number"
+      min="1"
+      max="5"
+      required
+      value={rating}
+      onChange={(e) => setRating(e.target.value)}
+      className="input input-bordered w-full"
+    />
+  </div>
+
+  {/* Comment */}
+  <div className="mb-3">
+    <label className="block mb-1">Comment</label>
+    <textarea
+      required
+      value={comment}
+      onChange={(e) => setComment(e.target.value)}
+      className="textarea textarea-bordered w-full"
+    />
+  </div>
+
+  <div className="modal-action">
     <button
-      onClick={() => handleEdit(application)}
-      className="bg-green-600 text-white px-3 py-1 rounded mr-2"
+      type="button"
+      className="btn"
+      onClick={() => setIsReviewOpen(false)}
     >
-      Edit
+      Cancel
     </button>
-  )}
-
-  {/* PAY BUTTON — only if pending AND payment === unpaid */}
-  {application.status === "pending" && application.paymentStatus === "unpaid" && (
-    <button
-      onClick={() => handlePayment(application)}
-      className="bg-purple-600 text-white px-3 py-1 rounded mr-2"
-    >
-      Pay
+    <button type="submit" className="btn btn-primary">
+      Submit
     </button>
-  )}
+  </div>
+</form>
 
-  {/* DELETE BUTTON — only if pending */}
-  {application.status === "pending" && (
-    <button
-      onClick={() => handleDelete(application._id)}
-      className="bg-red-600 text-white px-3 py-1 rounded mr-2"
-    >
-      Delete
-    </button>
-  )}
-
-  {/* ADD REVIEW — only if completed */}
-  {application.status === "completed" && (
-    <button
-      onClick={() => handleOpenReviewModal(application)}
-      className="bg-yellow-600 text-white px-3 py-1 rounded"
-    >
-      Add Review
-    </button>
-  )}
-
-</td>
-
+          </div>
+        </dialog>
+      )}
     </tr>
   );
 };
