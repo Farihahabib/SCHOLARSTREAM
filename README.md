@@ -1,16 +1,121 @@
-# React + Vite
+# 🎓 ScholarStream
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Project Purpose
 
-Currently, two official plugins are available:
+ScholarStream is a scholarship management platform designed to help students easily find, apply for, and track scholarships. It also provides role-based dashboards for Admins and Moderators to manage scholarships, applications, and users efficiently.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The goal of this project is to simplify the scholarship application process while maintaining transparency, security, and usability.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🌐 Live URL
 
-## Expanding the ESLint configuration
+* **Frontend:** [https://your-frontend.vercel.app](https://your-frontend.vercel.app)
+* **Backend API:** [https://your-backend.vercel.app](https://your-backend.vercel.app)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+> ⚠️ Replace the URLs above with your actual deployed links.
+
+---
+
+## ✨ Key Features
+
+### 👩‍🎓 Student Features
+
+* Browse scholarships with search, filter, and sorting
+* View top scholarships with lowest application fees
+* Apply for scholarships online
+* Track application status from dashboard
+
+### 🧑‍💼 Moderator Features
+
+* Review scholarship applications
+* Approve or reject applications
+* Provide feedback to students
+
+### 👨‍💻 Admin Features
+
+* Manage users (promote/demote roles)
+* Add, update, and delete scholarships
+* View analytics and platform insights
+
+### 🌟 General Features
+
+* Authentication with Firebase
+* Role-based authorization (Admin / Moderator / Student)
+* Responsive UI for all devices
+* Smooth animations using Framer Motion
+* Secure API with JWT verification
+
+---
+
+## 🧰 Technologies & npm Packages Used
+
+### 🔹 Frontend
+
+* **React** – UI development
+* **Vite** – Fast build tool
+* **React Router DOM** – Client-side routing
+* **@tanstack/react-query** – Data fetching & caching
+* **Axios** – HTTP requests
+* **Framer Motion** – Animations
+* **Tailwind CSS** – Styling
+* **React Hook Form** – Form handling
+* **React Hot Toast** – Notifications
+* **Firebase** – Authentication
+
+### 🔹 Backend
+
+* **Node.js** – Runtime environment
+* **Express.js** – Backend framework
+* **MongoDB** – Database
+* **Mongoose** – MongoDB ODM
+* **JWT (jsonwebtoken)** – Authentication
+* **CORS** – Cross-origin resource sharing
+* **dotenv** – Environment variables
+
+---
+
+## 🚀 Installation & Setup (Optional)
+
+### Frontend
+
+```bash
+npm install
+npm run dev
+```
+
+### Backend
+
+```bash
+npm install
+npm start
+```
+
+---
+
+## 🔐 Environment Variables
+
+### Frontend (`.env`)
+
+```
+VITE_API_URL=your_backend_url
+VITE_FIREBASE_API_KEY=xxxxx
+```
+
+### Backend (Vercel Dashboard)
+
+```
+DB_URI=your_mongodb_uri
+JWT_SECRET=your_secret
+```
+
+---
+
+## 🏁 Conclusion
+
+ScholarStream is a complete full-stack MERN project that demonstrates real-world features like authentication, role-based access, secure APIs, and dynamic data handling. It is suitable for academic projects and scalable for real-world use.
+
+---
+
+⭐ **Thank you for checking out ScholarStream!**
+

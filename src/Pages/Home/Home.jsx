@@ -84,7 +84,13 @@ const Home = () => {
                 </motion.div>
               ))}
             </motion.div>
-            {/* SUCCESS STORIES  */}
+
+
+
+          </>
+        )}
+      </Container>
+                  {/* SUCCESS STORIES  */}
 <motion.section
   initial={{ opacity: 0, y: 30 }}
   whileInView={{ opacity: 1, y: 0 }}
@@ -92,7 +98,7 @@ const Home = () => {
   transition={{ duration: 0.6 }}
   className="mb-16 "
 >
-  <h2 className="text-2xl text-blue-800 border-b-3 font-bold mb-6 text-center">
+  <h2 className="text-2xl text-blue-800 border-b-3 font-bold mb-6 py-9 text-center">
     Success Stories
   </h2>
 
@@ -175,11 +181,6 @@ const Home = () => {
     ))}
   </div>
 </motion.section>
-
-
-          </>
-        )}
-      </Container>
     </>
   );
 };

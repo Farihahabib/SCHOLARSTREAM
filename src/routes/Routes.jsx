@@ -27,6 +27,8 @@ import AllReviews from '../Pages/Dashboard/Moderator/AllReviews'
 import MyReviews from '../Pages/Dashboard/Customer/MyReviews'
 import Analytics from '../Pages/Dashboard/Admin/Analytics'
 import UpdateScholarship from '../Pages/Dashboard/Admin/UpdateScholarship'
+import AdminRoute from './AdminRoute'
+import ModeratorRoute from './ModeratorRoute'
 
 
 export const router = createBrowserRouter([
@@ -45,10 +47,16 @@ export const router = createBrowserRouter([
       },
       {
           path:"/payment/:id",
-         element: <Payment />,
+         element:(<PrivateRoute>
+          <Payment />
+         </PrivateRoute>)
+          ,
         },
       {  path:"payment-success",
-         element: <Paymentsuccess />},
+         element:(<PrivateRoute>
+             <Paymentsuccess />
+         </PrivateRoute>)
+       },
     
         {
         path: '/allscholarships',
@@ -80,7 +88,9 @@ export const router = createBrowserRouter([
         path: 'add-scholarship',
         element: (
           <PrivateRoute>
-            <AddScholarship />
+            <AdminRoute>
+                    <AddScholarship />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -88,7 +98,10 @@ export const router = createBrowserRouter([
         path: 'manage-scholarship',
         element: (
           <PrivateRoute>
-            <ManageScholarships />
+            <AdminRoute>  
+               <ManageScholarships />
+               </AdminRoute>
+         
           </PrivateRoute>
         ),
       },
@@ -96,7 +109,10 @@ export const router = createBrowserRouter([
   path: 'updatescholarship/:id',
   element: (
     <PrivateRoute>
-      <UpdateScholarship />
+      <AdminRoute>
+         <UpdateScholarship />
+         </AdminRoute>
+  
     </PrivateRoute>
   ),
 },
@@ -105,7 +121,10 @@ export const router = createBrowserRouter([
         path: 'manage-users',
         element: (
           <PrivateRoute>
-            <ManageUsers />
+            <AdminRoute>
+               <ManageUsers />
+               </AdminRoute>
+           
           </PrivateRoute>
         ),
       },
@@ -113,7 +132,10 @@ export const router = createBrowserRouter([
         path: 'analytics',
         element: (
           <PrivateRoute>
-            <Analytics />
+            <AdminRoute> 
+               <Analytics />
+            </AdminRoute>
+          
           </PrivateRoute>
         ),
       },
@@ -135,15 +157,31 @@ export const router = createBrowserRouter([
       },
       {
         path: 'manage-applications',
-        element: <ManageApplys />,
+        element: (
+        <PrivateRoute>
+          <ModeratorRoute>
+            <ManageApplys />
+            </ModeratorRoute>
+        </PrivateRoute>
+        ),
       },
       {
         path: 'all-reviews',
-        element: <AllReviews />,
+        element:  (  <PrivateRoute>
+          <ModeratorRoute>
+            <AllReviews />
+            </ModeratorRoute>
+        </PrivateRoute>
+        ),
       },
       {
         path: 'my-reviews',
-        element: <MyReviews />,
+        element:(
+        <PrivateRoute> 
+          <MyReviews />
+          </PrivateRoute>
+       )
+        ,
       },
 
   
