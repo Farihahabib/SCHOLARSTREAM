@@ -1,41 +1,41 @@
-import { useState } from 'react'
-import UpdateUserRoleModal from '../../Modal/UpdateUserRoleModal'
+import React from "react";
 
-const UserDataRow = () => {
-  let [isOpen, setIsOpen] = useState(false)
-  const closeModal = () => setIsOpen(false)
+const UserDataRow = ({ user, onUpdateRole, onDelete }) => {
+  const { _id, email, role, created_at, last_loggedIn } = user;
+
   return (
     <tr>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900 '>abc@gmail.com</p>
-      </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900 '>Customer</p>
-      </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className=''>Unavailable</p>
-      </td>
-
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <span
-          onClick={() => setIsOpen(true)}
-          className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'
+      <td className="border px-2 py-1">{email}</td>
+      <td className="border px-2 py-1">{role}</td>
+      <td className="border px-2 py-1">{new Date(created_at).toLocaleString()}</td>
+      <td className="border px-2 py-1">{new Date(last_loggedIn).toLocaleString()}</td>
+      <td className="border px-2 py-1 space-x-2">
+        {role !== "admin" && (
+          <button
+            className="bg-green-500 text-white px-2 py-1 rounded"
+            onClick={() => onUpdateRole(_id, "admin")}
+          >
+            Promote to Admin
+          </button>
+        )}
+        {role !== "customer" && (
+          <button
+            className="bg-yellow-500 text-white px-2 py-1 rounded"
+            onClick={() => onUpdateRole(_id, "customer")}
+          >
+            Demote to Customer
+          </button>
+        )}
+        <button
+          className="bg-red-500 text-white px-2 py-1 rounded"
+          onClick={() => onDelete(_id)}
         >
-          <span
-            aria-hidden='true'
-            className='absolute inset-0 bg-green-200 opacity-50 rounded-full'
-          ></span>
-          <span className='relative'>Update Role</span>
-        </span>
-        {/* Modal */}
-        <UpdateUserRoleModal
-          isOpen={isOpen}
-          closeModal={closeModal}
-          role='customer'
-        />
+          Delete
+        </button>
       </td>
     </tr>
-  )
-}
+  );
+};
 
-export default UserDataRow
+export default UserDataRow;
+

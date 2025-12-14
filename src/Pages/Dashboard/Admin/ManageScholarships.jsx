@@ -2,15 +2,17 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React from 'react';
 import AdminManageDataRows from '../../../Components/Dashboard/Tablerows/AdminManageDataRows';
+import LoadingSpinner from '../../../components/Shared/LoadingSpinner';
 
 const ManageScholarships = () => {
-       const {data: scholarships=[],isLoading,isError} =useQuery({
+       const {data: scholarships=[],isLoading,isError,onDelete} =useQuery({
           queryKey: ['scholarships'],
           queryFn: async () =>{
     const result = await axios(`${import.meta.env.VITE_API_URL}/scholarships` )
     return result.data;
           } 
         })
+        if(isLoading) return <LoadingSpinner />
     return (
     
            <div className="container mx-auto px-4 sm:px-8">
@@ -45,6 +47,7 @@ const ManageScholarships = () => {
                                         <AdminManageDataRows
                                           key={scholarship._id}
                                           scholarship={scholarship}
+                                          onDelete={onDelete}
                                         />
                                       ))}
 

@@ -27,6 +27,7 @@ import ManageScholarships from '../Pages/Dashboard/Admin/ManageScholarships'
 import AllReviews from '../Pages/Dashboard/Moderator/AllReviews'
 import MyReviews from '../Pages/Dashboard/Customer/MyReviews'
 import Analytics from '../Pages/Dashboard/Admin/Analytics'
+import UpdateScholarship from '../Pages/Dashboard/Admin/UpdateScholarship'
 
 
 export const router = createBrowserRouter([
@@ -100,6 +101,15 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+            {
+  path: 'updatescholarship/:id',
+  element: (
+    <PrivateRoute>
+      <UpdateScholarship />
+    </PrivateRoute>
+  ),
+},
+
       {
         path: 'manage-users',
         element: (
@@ -144,6 +154,7 @@ export const router = createBrowserRouter([
         path: 'my-reviews',
         element: <MyReviews />,
       },
+
   
     ],
   },

@@ -10,7 +10,7 @@ const ModeratorOrderDataRow = ({application}  ) => {
   const [detailsOpen, setDetailsOpen] = useState(false)
   const [feedbackOpen, setFeedbackOpen] = useState(false)
 const { _id, studentName, studentEmail, universityName } = application
-const [currentStatus, setCurrentStatus] = useState(application.status)
+const [currentStatus, setCurrentStatus] = useState('pending')
 
 console.log(application);
 

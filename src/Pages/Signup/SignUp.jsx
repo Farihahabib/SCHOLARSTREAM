@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast'
 import { TbFidgetSpinner } from 'react-icons/tb'
 import { FaSpinner } from 'react-icons/fa'
 import { useForm, Watch } from 'react-hook-form'
-import  axios, { Axios } from 'axios'
+
 import { imageUpload, saveorUpdateUser } from '../../utils'
 const SignUp = () => {
   const { createUser, updateUserProfile, signInWithGoogle, loading } = useAuth()
@@ -31,12 +31,11 @@ const SignUp = () => {
   const imageURL = await imageUpload(imageFile)
      //2. User Registration
      const result = await createUser(email, password)
-await saveorUpdateUser({name,email,image:imageURL,role:'student'})
+     console.log('usercreated',result.user.email)
+
+      await saveorUpdateUser({ name, email, image: imageURL })
      //3. Save username & profile photo
-     await updateUserProfile(
-       name,
-      imageURL
-    )
+    await updateUserProfile(name, imageURL)
 
 
     navigate(from, { replace: true })
@@ -46,35 +45,6 @@ await saveorUpdateUser({name,email,image:imageURL,role:'student'})
      toast.error(err?.message)
    }
    }
-  
-
-  // form submit handler
-  // const handleSubmit = async event => {
-  //   event.preventDefault()
-  //   const form = event.target
-  //   const name = form.name.value
-  //   const email = form.email.value
-  //   const password = form.password.value
-
-  //   try {
-  //     //2. User Registration
-  //     const result = await createUser(email, password)
-
-  //     //3. Save username & profile photo
-  //     await updateUserProfile(
-  //       name,
-  //       'https://lh3.googleusercontent.com/a/ACg8ocKUMU3XIX-JSUB80Gj_bYIWfYudpibgdwZE1xqmAGxHASgdvCZZ=s96-c'
-  //     )
-  //     console.log(result)
-
-  //     navigate(from, { replace: true })
-  //     toast.success('Signup Successful')
-  //   } catch (err) {
-  //     console.log(err)
-  //     toast.error(err?.message)
-  //   }
-  // }
-
   // Handle Google Signin
   const handleGoogleSignIn = async () => {
     try {
@@ -83,7 +53,7 @@ await saveorUpdateUser({name,email,image:imageURL,role:'student'})
 await saveorUpdateUser({name:user?.displayName,
   email:user?.email,
   image:user?.photoURL,
-  role:'student'})
+})
       navigate(from, { replace: true })
       toast.success('Signup Successful')
     } catch (err) {
