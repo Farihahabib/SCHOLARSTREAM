@@ -1,19 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import toast from 'react-hot-toast';
+
 
 const AdminManageDataRows = ({ scholarship, onDelete }) => {
   const { _id, city, applicationFees, country, universityName } = scholarship;
   const navigate = useNavigate();
-
-  // DELETE FUNCTION
-  const handleDelete = async () => {
-   
-        await axios.delete(`${import.meta.env.VITE_API_URL}/scholarships/${_id}`);
-        toast.success('Scholarship deleted successfully');
-        if (onDelete) onDelete(_id); 
-  };
 
   // UPDATE FUNCTION (just navigate to the update page)
   const handleUpdate = () => {
@@ -36,12 +27,13 @@ const AdminManageDataRows = ({ scholarship, onDelete }) => {
         </button>
 
         {/* DELETE BUTTON */}
-        <button
-          onClick={handleDelete}
-          className="btn btn-xs bg-red-500 text-white hover:bg-red-600"
-        >
-          Delete
-        </button>
+      <button
+  onClick={onDelete}
+  className="bg-red-500 text-white px-2 py-1 rounded"
+>
+  Delete
+</button>
+
       </td>
     </tr>
   );

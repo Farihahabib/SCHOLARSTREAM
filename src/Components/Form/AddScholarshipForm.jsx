@@ -35,16 +35,33 @@ const {
     formState: { errors },
   } = useForm()
   console.log(errors)
-  const onSubmit = async data =>{
-    console.log(data)
-    const {scholarshipName,
-      universityName,image,country,city,worldRank,subjectCategory,scholarshipCategory,degree,tuitionFees,applicationFees, serviceCharge,deadline,postDate
-      ,userEmail}= data;
-      const imageFile = image[0];
-      
-      try{
-         const imageURL = await imageUpload(imageFile)
-      const scholarshipData = {image:imageURL, scholarshipName,
+ const onSubmit = async data => {
+  console.log(data)
+  const { 
+    scholarshipName,
+    universityName,
+    image,
+    country,
+    city,
+    worldRank,
+    subjectCategory,
+    scholarshipCategory,
+    degree,
+    tuitionFees,
+    applicationFees,
+    serviceCharge,
+    deadline,
+    postDate,
+    userEmail
+  } = data;
+
+  const imageFile = image[0];
+
+  try {
+    const imageURL = await imageUpload(imageFile);
+    const scholarshipData = {
+      image: imageURL,
+      scholarshipName,
       universityName,
       country,
       city,
@@ -53,26 +70,36 @@ const {
       scholarshipCategory,
       degree,
       tuitionFees: Number(tuitionFees),
-      applicationFees:Number(applicationFees),
-      serviceCharge:Number(serviceCharge),
+      applicationFees: Number(applicationFees),
+      serviceCharge: Number(serviceCharge),
       deadline,
       postDate,
       userEmail,
       moderator: {
-        image:user?.photoURL || '',
-        name:user?.displayName || '',
-        email:user?.email || '',
-      }      
-    } 
-          await mutateAsync(scholarshipData)
-       reset()
-            }catch(err){
-        console.log(err)
+        image: user?.photoURL || '',
+        name: user?.displayName || '',
+        email: user?.email || '',
       }
-    
+    };
 
- 
-    }
+    // --- GET TOKEN ---
+    const token = await user.getIdToken(); // Firebase JWT
+
+    // --- SEND WITH AUTH HEADER ---
+    await mutateAsync(
+      scholarshipData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    reset();
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 if(isPending) return <LoadingSpinner />
 if(isError) return <ErrorPage />

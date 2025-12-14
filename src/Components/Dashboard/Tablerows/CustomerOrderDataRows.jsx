@@ -23,7 +23,7 @@ const CustomerOrderDataRows = ({ application }) => {
     applicationFees,
     paymentStatus, // "paid" | "unpaid"
   } = application;
-
+console.log(application)
 
   const handleReviewSubmit = async (e) => {
   e.preventDefault();
@@ -84,6 +84,7 @@ const CustomerOrderDataRows = ({ application }) => {
           {status}
         </span>
       </td>
+      <td>{paymentStatus}</td>
 
       {/* Actions */}
       <td className="space-x-2">

@@ -51,6 +51,9 @@ const MyApplications = () => {
                     <th className="px-5 w-28 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal">
                       Status
                     </th>
+                    <th className="px-5 w-28 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal">
+                     Payment Status
+                    </th>
 
                     <th className="px-5 py-3 w-28 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal">
                       Action

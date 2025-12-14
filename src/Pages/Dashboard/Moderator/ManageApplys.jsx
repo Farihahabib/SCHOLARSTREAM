@@ -6,13 +6,6 @@ import LoadingSpinner from '../../../components/Shared/LoadingSpinner'
 import ModeratorOrderDataRow from '../../../Components/Dashboard/Tablerows/ModeratorOrderDataRow'
 
 const ManageApplys = () => {
-//      const {data: scholarships=[],isLoading,isError} =useQuery({
-//       queryKey: ['scholarships'],
-//       queryFn: async () =>{
-// const result = await axios(`${import.meta.env.VITE_API_URL}/scholarships` )
-// return result.data
-//       } 
-//     })
   const{user}=useAuth()
     const {data:applications=[],isLoading,isError} =useQuery({
       queryKey: ['applications'],

@@ -1,6 +1,6 @@
 import AddScholarshipForm from '../../../Components/Form/AddScholarshipForm'
 
-const AddPlant = () => {
+const AddScholarship = () => {
   return (
     <div>
       {/* Form */}
@@ -9,4 +9,4 @@ const AddPlant = () => {
   )
 }
 
-export default AddPlant
+export default AddScholarship

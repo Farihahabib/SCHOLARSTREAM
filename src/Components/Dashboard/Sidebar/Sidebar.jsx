@@ -50,7 +50,6 @@ const Sidebar = () => {
         }  md:translate-x-0  transition duration-200 ease-in-out`}
       >
         <div className='flex flex-col h-full'>
-          {/* Top Content */}
           <div>
             {/* Logo */}
             <div className='w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-lime-100 mx-auto'>
@@ -60,20 +59,8 @@ const Sidebar = () => {
               </Link>
             </div>
           </div>
-
-          {/* Middle Content */}
-          <div className='flex flex-col justify-between flex-1 mt-6'>
-            {/*  Menu Items */}
-            <nav>
-              {/* Role-Based Menu */}
-              <StudentsMenu />
-              <SellerMenu />
-              <AdminMenu />
-            </nav>
-          </div>
-
-          {/* Bottom Content */}
-          <div>
+                {/* Top Content */}
+            <div className='border-b-4'>
             <hr />
 
             <MenuItem
@@ -90,6 +77,18 @@ const Sidebar = () => {
               <span className='mx-4 font-medium'>Logout</span>
             </button>
           </div>
+          {/* Middle Content */}
+          <div className='flex flex-col justify-between flex-1 mt-6'>
+            {/*  Menu Items */}
+            <nav>
+              {/* Role-Based Menu */}
+              <StudentsMenu />
+              <SellerMenu />
+              <AdminMenu />
+            </nav>
+          </div>
+
+         
         </div>
       </div>
     </>

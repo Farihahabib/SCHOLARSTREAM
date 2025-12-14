@@ -1,17 +1,38 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import toast from 'react-hot-toast';
+
 import React from 'react';
 import AdminManageDataRows from '../../../Components/Dashboard/Tablerows/AdminManageDataRows';
 import LoadingSpinner from '../../../components/Shared/LoadingSpinner';
 
 const ManageScholarships = () => {
-       const {data: scholarships=[],isLoading,isError,onDelete} =useQuery({
-          queryKey: ['scholarships'],
-          queryFn: async () =>{
-    const result = await axios(`${import.meta.env.VITE_API_URL}/scholarships` )
-    return result.data;
-          } 
-        })
+const queryClient = useQueryClient();
+
+const { data = {}, isLoading } = useQuery({
+  queryKey: ['scholarships'],
+  queryFn: async () => {
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/scholarships`);
+    return res.data;
+  },
+});
+
+const scholarships = data.scholarships || [];
+//delete mutation
+const deleteMutation = useMutation({
+  mutationFn: async (id) => {
+    await axios.delete(`${import.meta.env.VITE_API_URL}/scholarships/${id}`);
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries(['scholarships']); // refetch list
+    toast.success('Scholarship deleted successfully!');
+  },
+  onError: () => {
+    toast.error('Failed to delete scholarship');
+  },
+});
+
+
         if(isLoading) return <LoadingSpinner />
     return (
     
@@ -44,11 +65,12 @@ const ManageScholarships = () => {
                 </thead>
                 <tbody>
                      {scholarships.map((scholarship) => (
-                                        <AdminManageDataRows
-                                          key={scholarship._id}
-                                          scholarship={scholarship}
-                                          onDelete={onDelete}
-                                        />
+                                    <AdminManageDataRows
+                                      key={scholarship._id}
+                                      scholarship={scholarship}
+                                      onDelete={() => deleteMutation.mutate(scholarship._id)}
+                                                                    />
+
                                       ))}
 
 
