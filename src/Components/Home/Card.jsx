@@ -22,7 +22,7 @@ console.log(scholarship)
             className='
                 object-cover 
                 h-full 
-                w-90 
+                w-full 
                hover:scale-110
                 transition
               '

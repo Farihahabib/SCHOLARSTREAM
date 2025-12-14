@@ -6,14 +6,16 @@ import LoadingSpinner from '../components/Shared/LoadingSpinner';
 import useAuth from '../Hooks/useAuth';
 import { useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../Hooks/useAxiosSequire';
 
 const Payment = () => {
   const { id } = useParams();
   const {user} = useAuth();
+  const axiosSecure = useAxiosSecure()
   const {data:scholarship={},isLoading,isError} =useQuery({
       queryKey: ['scholarship',id],
       queryFn: async () =>{
-const result = await axios.get(`${import.meta.env.VITE_API_URL}/scholarships/${id}` )
+const result = await axiosSecure.get(`/scholarships/${id}` )
 // console.log(result);
 return result.data
 
@@ -45,8 +47,8 @@ const handlePayment = async () => {
         image: user?.photoURL,
       }
     };
-    const result = await axios.post(
-      `${import.meta.env.VITE_API_URL}/create-checkout-session`,
+    const result = await axiosSecure.post(
+      `/create-checkout-session`,
       paymentInfo
     )
     console.log(result.data.url);

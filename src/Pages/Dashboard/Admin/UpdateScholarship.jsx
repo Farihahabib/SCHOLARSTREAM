@@ -7,19 +7,20 @@ import toast from "react-hot-toast";
 import { FaSpinner } from "react-icons/fa";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import ErrorPage from "../../ErrorPage";
+import useAxiosSecure from "../../../Hooks/useAxiosSequire";
 
 const UpdateScholarship = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(false);
-
+  const axiosSecure = useAxiosSecure()
   const { register, handleSubmit, reset } = useForm();
 
   // Fetch scholarship data 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["scholarship", id],
     queryFn: async () => {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/scholarships/${id}`);
+      const res = await axiosSecure.get(`/scholarships/${id}`);
       return res.data;
     },
   });
@@ -49,7 +50,7 @@ const UpdateScholarship = () => {
 
   const onSubmit = async (formData) => {
     setIsPending(true);
-      await axios.put(`${import.meta.env.VITE_API_URL}/scholarships/${id}`, formData);
+      await axiosSecure.put(`/scholarships/${id}`, formData);
       toast.success("Scholarship updated successfully!");
       navigate("/dashboard/manage-scholarship");
   };

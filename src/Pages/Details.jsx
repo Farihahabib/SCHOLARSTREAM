@@ -2,9 +2,9 @@ import React from 'react';
 import Container from '../Components/Shared/Container';
 import MyLink from '../Components/Shared/MyLink';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { useParams } from 'react-router';
 import LoadingSpinner from '../components/Shared/LoadingSpinner';
+import useAxiosSequire from '../Hooks/useAxiosSequire';
 const DetailBox = ({ label, value, pre }) => (
   <div className="p-4 bg-blue-50 rounded-lg border">
     <p className="font-semibold text-blue-900">{label}</p>
@@ -19,10 +19,11 @@ const DetailBox = ({ label, value, pre }) => (
 
 const Details = () => {
   const {id}=useParams();
+  const axiosSecure = useAxiosSequire()
   const {data:scholarship=[],isLoading,isError,refetch} =useQuery({
       queryKey: ['scholarship',id],
       queryFn: async () =>{
-const result = await axios(`${import.meta.env.VITE_API_URL}/scholarships/${id}` )
+const result = await axiosSecure(`/scholarships/${id}` )
 return result.data
       }
   })

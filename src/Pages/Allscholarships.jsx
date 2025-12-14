@@ -3,6 +3,8 @@ import Container from '../Components/Shared/Container.jsx';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import Card from '../Components/Home/Card.jsx';
+import LoadingSpinner from '../components/Shared/LoadingSpinner.jsx';
+import useAxiosSecure from '../Hooks/useAxiosSequire.jsx';
 
 const Allscholarships = () => {
   const [search, setSearch] = useState('');
@@ -10,7 +12,7 @@ const Allscholarships = () => {
  const [sortBy, setSortBy] = useState('fees_asc');
   const [page, setPage] = useState(1);
   const limit = 8;
-
+const axiosSecure = useAxiosSecure();
   const { data, isLoading, isError } = useQuery({
     queryKey: ['scholarships', search, countryFilter, sortBy, page],
     queryFn: async () => {
@@ -21,13 +23,13 @@ const Allscholarships = () => {
       params.append('page', page);
       params.append('limit', limit);
 
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/scholarships?${params.toString()}`);
+      const res = await axiosSecure.get(`/scholarships?${params.toString()}`);
       return res.data;
     },
     keepPreviousData: true,
   });
 
-  if (isLoading) return <p>Loading scholarships...</p>;
+  if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>Error loading scholarships.</p>;
 
   const { scholarships = [], total = 0, pages = 1 } = data || [];

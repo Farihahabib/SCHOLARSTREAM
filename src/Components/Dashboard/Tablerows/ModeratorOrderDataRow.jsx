@@ -4,6 +4,7 @@ import DetailsModal from "../../Modal/DetailsModal"
 import FeedbackModal from "../../Modal/FeedbackModal"
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../Hooks/useAxiosSequire";
 
 
 const ModeratorOrderDataRow = ({application}  ) => {
@@ -11,12 +12,12 @@ const ModeratorOrderDataRow = ({application}  ) => {
   const [feedbackOpen, setFeedbackOpen] = useState(false)
 const { _id, studentName, studentEmail, universityName } = application
 const [currentStatus, setCurrentStatus] = useState('pending')
-
+const axiosSecure = useAxiosSecure();
 console.log(application);
 
   const handleStatusUpdate = async (newStatus) => {
-  await axios.patch(
-  `${import.meta.env.VITE_API_URL}/applications/status/${_id}`,
+  await axiosSecure.patch(
+  `/applications/status/${_id}`,
   { status: newStatus }
 )
 
@@ -26,7 +27,7 @@ console.log(application);
 
 const handleCancel = async () => {
 
-    await axios.patch(`${import.meta.env.VITE_API_URL}/applications/status/${_id}`, {
+    await axiosSecure.patch(`/applications/status/${_id}`, {
       status: "rejected",
     });
     setCurrentStatus("rejected"); 

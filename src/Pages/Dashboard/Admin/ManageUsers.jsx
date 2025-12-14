@@ -5,15 +5,16 @@ import AdminManageDataRows from "../../../Components/Dashboard/Tablerows/AdminMa
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import toast from "react-hot-toast";
 import UserDataRow from "../../../Components/Dashboard/Tablerows/UserDataRow";
+import useAxiosSecure from "../../../Hooks/useAxiosSequire";
 
 const ManageUsers = () => {
   const queryClient = useQueryClient();
-
+ const axiosSecure= useAxiosSecure();
   // Fetch users
   const { data: users = [], isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/users`);
+      const result = await axiosSecure.get(`/users`);
       return result.data;
     },
   });

@@ -4,13 +4,15 @@ import useAuth from '../../../Hooks/useAuth'
 import { useQuery } from '@tanstack/react-query'
 import LoadingSpinner from '../../../components/Shared/LoadingSpinner'
 import ModeratorOrderDataRow from '../../../Components/Dashboard/Tablerows/ModeratorOrderDataRow'
+import useAxiosSecure from '../../../Hooks/useAxiosSequire'
 
 const ManageApplys = () => {
   const{user}=useAuth()
+  const axiosSecure = useAxiosSecure()
     const {data:applications=[],isLoading,isError} =useQuery({
       queryKey: ['applications'],
       queryFn: async () =>{
-     const result = await axios(`${import.meta.env.VITE_API_URL}/applications` )
+     const result = await axiosSecure(`/applications` )
      console.log(result.data)
       return result.data
       }

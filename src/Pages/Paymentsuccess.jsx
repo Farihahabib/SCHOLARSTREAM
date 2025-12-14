@@ -2,10 +2,11 @@ import axios from 'axios';
 import React, { useEffect, useState,  } from 'react';
 import {  useSearchParams } from 'react-router';
 import MyLink from '../Components/Shared/MyLink';
+import useAxiosSecure from '../Hooks/useAxiosSequire';
 
 
 const Paymentsuccess = () => {
-
+  const axiosSequire = useAxiosSecure()
     const [searchParams]=useSearchParams();
     const sessionId = searchParams.get('session_id');
      const [paymentData,   setPaymentData ] = useState({});
@@ -13,7 +14,7 @@ const Paymentsuccess = () => {
 useEffect(() => {
 if (sessionId) {
     //
-    axios.post(`${import.meta.env.VITE_API_URL}/payment-success`,{
+    axiosSequire.post(`/payment-success`,{
         sessionId,   
     }).then((res) => {
           setPaymentData(res.data); // ✅ UPDATE STATE HERE

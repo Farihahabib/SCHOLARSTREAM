@@ -1,8 +1,11 @@
 import useAuth from '../../../Hooks/useAuth'
+import useRole from '../../../Hooks/useRole';
 import coverImg from '../../../assets/logo-flat.png'
 
 const Profile = () => {
-  const { user } = useAuth()
+  const { user } = useAuth();
+  const [role,isRoleLoading] = useRole()
+console.log(role,isRoleLoading)
 
   return (
     <div className='flex justify-center items-center h-screen'>
@@ -22,7 +25,7 @@ const Profile = () => {
           </a>
 
           <p className='p-2 px-4 text-xs text-white bg-blue-950 rounded-full'>
-            Students
+          {role}
           </p>
           <p className='mt-2 text-xl font-medium text-gray-800 '>
             User Id: {user?.uid}
@@ -39,15 +42,6 @@ const Profile = () => {
                 Email
                 <span className='font-bold text-gray-600 mb-3 '>{user?.email}</span>
               </p>
-
-              <div className='flex justify-between items-center gap-5 '>
-                <button className='btn hover px-10 py-2 rounded-lg text-white cursor-pointerblock mb-1'>
-                  Update Profile
-                </button>
-                <button className='btn hover px-7 py-2 rounded-lg text-white cursor-pointerblock mb-1'>
-                  Change Password
-                </button>
-              </div>
             </div>
           </div>
         </div>

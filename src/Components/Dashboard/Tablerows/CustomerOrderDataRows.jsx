@@ -1,15 +1,13 @@
 import { useState } from "react";
-import DeleteModal from "../../Modal/DeleteModal";
-import axios from "axios";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../Hooks/useAxiosSequire";
 
 const CustomerOrderDataRows = ({ application }) => {
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [rating, setRating] = useState("");
   const [comment, setComment] = useState("");
-
+ const axiosSecure = useAxiosSecure()
 
   const {
     _id,
@@ -38,8 +36,8 @@ console.log(application)
     createdAt: new Date(),
   };
  try {
-    const result = await axios.post(
-      `${import.meta.env.VITE_API_URL}/reviews`,
+    const result = await axiosSecure.post(
+      `/reviews`,
       reviewData
     );
 
@@ -115,15 +113,11 @@ console.log(application)
         {status === "pending" && (
           <>
             <button
-              onClick={() => setIsDeleteOpen(true)}
               className="btn btn-xs bg-red-500 text-white"
             >
               Delete
             </button>
-            <DeleteModal
-              isOpen={isDeleteOpen}
-              closeModal={() => setIsDeleteOpen(false)}
-            />
+      
           </>
         )}
 

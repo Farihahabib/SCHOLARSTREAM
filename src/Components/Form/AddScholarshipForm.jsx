@@ -8,13 +8,15 @@ import LoadingSpinner from "../Shared/LoadingSpinner"
 import toast from "react-hot-toast"
 import { FaSpinner } from "react-icons/fa"
 import useAuth from "../../Hooks/useAuth"
+import useAxiosSecure from "../../Hooks/useAxiosSequire"
 
 const AddScholarshipForm = () => {
+  const axiosSecure = useAxiosSecure()
 //useMutation hook use here
 const {user } = useAuth();
 const {isPending,isError,mutateAsync} = useMutation({
   mutationFn: async (payload)=>
- await axios.post(`${import.meta.env.VITE_API_URL}/scholarships`,payload
+ await axiosSecure.post(`/scholarships`,payload
              ),
   onSuccess: (data)=>{
     //show success toast

@@ -45,7 +45,7 @@ const Login = () => {
     try {
       //User Registration using google
  const {user}= await signInWithGoogle()
-             await saveorUpdateUser({
+        await saveorUpdateUser({
         name: user?.displayName,
         email: user?.email,
         image: user?.photoURL,

@@ -1,13 +1,13 @@
 
-import { MdHomeWork, MdOutlineManageHistory } from 'react-icons/md'
+import {BsChatLeftDots,BsBriefcaseFill } from 'react-icons/bs'
 import MenuItem from './MenuItem'
 const ModeratorMenu = () => {
   return (
     <>
    
-      <MenuItem icon={MdOutlineManageHistory} label='All reviews' address='all-reviews' />
+      <MenuItem icon={BsChatLeftDots } label='All reviews' address='all-reviews' />
       <MenuItem
-        icon={MdOutlineManageHistory}
+        icon={BsBriefcaseFill }
         label='Manage Applications'
         address='manage-applications'
       />

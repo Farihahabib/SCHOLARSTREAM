@@ -4,20 +4,21 @@ import useAuth from '../../../Hooks/useAuth'
 import logo from '../../../assets/logo-flat.png'
 // Icons
 import { GrLogout } from 'react-icons/gr'
-import { FcSettings } from 'react-icons/fc'
+import { CgProfile } from 'react-icons/cg'
 import { AiOutlineBars } from 'react-icons/ai'
 import { BsGraphUp } from 'react-icons/bs'
 
 // User Menu
 import MenuItem from './Menu/MenuItem'
 import AdminMenu from './Menu/AdminMenu'
-import SellerMenu from './Menu/ModeratorMenu'
 import StudentsMenu from './Menu/StudentsMenu'
+import useRole from '../../../Hooks/useRole'
+import ModeratorMenu from './Menu/ModeratorMenu'
 
 const Sidebar = () => {
   const { logOut } = useAuth()
   const [isActive, setActive] = useState(false)
-
+ const [role,isRoleLoading] = useRole();
   // Sidebar Responsive Handler
   const handleToggle = () => {
     setActive(!isActive)
@@ -64,7 +65,7 @@ const Sidebar = () => {
             <hr />
 
             <MenuItem
-              icon={FcSettings}
+              icon={CgProfile}
               label='Profile'
               address='/dashboard/profile'
             />
@@ -82,9 +83,11 @@ const Sidebar = () => {
             {/*  Menu Items */}
             <nav>
               {/* Role-Based Menu */}
-              <StudentsMenu />
-              <SellerMenu />
-              <AdminMenu />
+           
+          
+           {role === 'Admin' && <AdminMenu /> }   
+           {role === 'Moderator' && <ModeratorMenu /> }   
+           {role === 'Student' &&  <StudentsMenu /> }   
             </nav>
           </div>
 

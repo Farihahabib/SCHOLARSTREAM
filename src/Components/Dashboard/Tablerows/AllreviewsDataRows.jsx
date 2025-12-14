@@ -1,13 +1,15 @@
 import axios from "axios";
 import React from "react";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../Hooks/useAxiosSequire";
 
 const AllreviewsDataRows = ({ review ,refetch}) => {
   const { _id,studentName, studentEmail, universityName, rating, comment } = review;
+  const axiosSecure = useAxiosSecure();
    console.log(review)
     const handleDelete = async () => {
       try {
-        await axios.delete(`${import.meta.env.VITE_API_URL}/reviews/${_id}`);
+        await axiosSecure.delete(`/reviews/${_id}`);
         toast.success("Review deleted successfully!");
         refetch(); // refetch the data after deletion
       } catch (error) {

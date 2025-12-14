@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import useAxiosSecure from '../../../Hooks/useAxiosSequire';
 
 const MyreviewsDataRows = ({ review, refetch }) => {
   const { _id, studentEmail, universityName, rating, comment } = review;
@@ -8,10 +9,10 @@ const MyreviewsDataRows = ({ review, refetch }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newRating, setNewRating] = useState(rating);
   const [newComment, setNewComment] = useState(comment);
-
+ const axiosSecure = useAxiosSecure()
   const handleDelete = async () => {
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/reviews/${_id}`);
+      await axiosSecure.delete(`/reviews/${_id}`);
       toast.success("Review deleted successfully!");
       refetch();
     } catch (error) {
@@ -22,7 +23,7 @@ const MyreviewsDataRows = ({ review, refetch }) => {
 
   const handleUpdate = async () => {
     try {
-    await axios.patch(`${import.meta.env.VITE_API_URL}/reviews/${_id}`, {
+    await axiosSecure.patch(`/reviews/${_id}`, {
   rating: newRating,
   comment: newComment,
 });

@@ -3,12 +3,14 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import AllreviewsDataRows from '../../../Components/Dashboard/Tablerows/AllreviewsDataRows';
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
+import useAxiosSecure from "../../../Hooks/useAxiosSequire";
 
 const AllReviews = () => {
+    const axiosSecure = useAxiosSecure()
   const { data: reviews = [], isLoading, isError,refetch } = useQuery({
     queryKey: ['reviews'],
     queryFn: async () => {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/reviews`);
+      const result = await axiosSecure.get(`/reviews`);
       return result.data;
     }
   });

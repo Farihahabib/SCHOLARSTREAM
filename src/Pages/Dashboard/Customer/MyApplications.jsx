@@ -3,10 +3,11 @@ import CustomerOrderDataRows from "../../../Components/Dashboard/Tablerows/Custo
 import axios from "axios";
 import useAuth from "../../../Hooks/useAuth";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
+import useAxiosSecure from "../../../Hooks/useAxiosSequire";
 
 const MyApplications = () => {
   const { user } = useAuth();
-
+ const axiosSecure = useAxiosSecure()
   const {
     data: applications = [],
     isLoading,
@@ -14,9 +15,7 @@ const MyApplications = () => {
   } = useQuery({
     queryKey: ["applications", user?.email],
     queryFn: async () => {
-      const result = await axios(
-        `${import.meta.env.VITE_API_URL}/my-applications/${user?.email}`
-      );
+      const result = await axiosSecure(`/my-applications/` );
       return result.data;
     },
   });

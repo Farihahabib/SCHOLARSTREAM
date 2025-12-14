@@ -3,10 +3,11 @@ import useAuth from '../../../Hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import MyreviewsDataRows from '../../../Components/Dashboard/Tablerows/MyreviewsDataRows';
+import useAxiosSecure from '../../../Hooks/useAxiosSequire';
 
 const MyReviews = () => {
       const { user } = useAuth();
-
+const axiosSecure = useAxiosSecure();
   const {
     data: reviews = [],
     isLoading,
@@ -15,8 +16,8 @@ const MyReviews = () => {
   } = useQuery({
     queryKey: ["reviews", user?.email],
     queryFn: async () => {
-      const result = await axios(
-        `${import.meta.env.VITE_API_URL}/my-reviews/${user?.email}`
+      const result = await axiosSecure(
+        `/my-reviews/`
       );
       return result.data;
     },

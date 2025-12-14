@@ -1,17 +1,17 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
+import useAxiosSecure from "../../../Hooks/useAxiosSequire";
 
 const Analytics = () => {
-  const API_URL = import.meta.env.VITE_API_URL;
+const axiosSecure = useAxiosSecure()
 
   // Total Users
   const { data: totalUsersData } = useQuery({
     queryKey: ["totalUsers"],
     queryFn: async () => {
-      const res = await axios.get(`${API_URL}/analytics/total-users`);
+      const res = await axiosSecure.get(`/analytics/total-users`);
       return res.data;
     },
   });
@@ -20,7 +20,7 @@ const Analytics = () => {
   const { data: totalScholarshipsData } = useQuery({
     queryKey: ["totalScholarships"],
     queryFn: async () => {
-      const res = await axios.get(`${API_URL}/analytics/total-scholarships`);
+      const res = await axiosSecure.get(`/analytics/total-scholarships`);
       return res.data;
     },
   });
@@ -29,7 +29,7 @@ const Analytics = () => {
   const { data: totalFeesData } = useQuery({
     queryKey: ["totalFees"],
     queryFn: async () => {
-      const res = await axios.get(`${API_URL}/analytics/total-fees`);
+      const res = await axiosSecure.get(`/analytics/total-fees`);
       return res.data;
     },
   });
@@ -38,7 +38,7 @@ const Analytics = () => {
   const { data: chartData, isLoading: chartLoading } = useQuery({
     queryKey: ["applicationsChart"],
     queryFn: async () => {
-      const res = await axios.get(`${API_URL}/analytics/applications-chart`);
+      const res = await axiosSecure.get(`/analytics/applications-chart`);
       // Transform data for Recharts
       return res.data.map(item => ({ name: item._id, applications: item.applications }));
     },

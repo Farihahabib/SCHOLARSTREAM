@@ -1,18 +1,17 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-
-import React from 'react';
 import AdminManageDataRows from '../../../Components/Dashboard/Tablerows/AdminManageDataRows';
 import LoadingSpinner from '../../../components/Shared/LoadingSpinner';
+import useAxiosSecure from '../../../Hooks/useAxiosSequire';
 
 const ManageScholarships = () => {
 const queryClient = useQueryClient();
-
+const axiosSecure = useAxiosSecure()
 const { data = {}, isLoading } = useQuery({
   queryKey: ['scholarships'],
   queryFn: async () => {
-    const res = await axios.get(`${import.meta.env.VITE_API_URL}/scholarships`);
+    const res = await axiosSecure.get(`/scholarships`);
     return res.data;
   },
 });
@@ -21,7 +20,7 @@ const scholarships = data.scholarships || [];
 //delete mutation
 const deleteMutation = useMutation({
   mutationFn: async (id) => {
-    await axios.delete(`${import.meta.env.VITE_API_URL}/scholarships/${id}`);
+    await axiosSecure.delete(`/scholarships/${id}`);
   },
   onSuccess: () => {
     queryClient.invalidateQueries(['scholarships']); // refetch list
