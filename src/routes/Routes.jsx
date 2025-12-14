@@ -8,7 +8,6 @@ import DashboardLayout from '../Layouts/DashboardLayout'
 import AddScholarship from '../Pages/Dashboard/Admin/Addscholarship'
 import ManageUsers from '../pages/Dashboard/Admin/ManageUsers'
 import Profile from '../pages/Dashboard/Common/Profile'
-import Statistics from '../pages/Dashboard/Common/Statistics'
 import MainLayout from '../Layouts/MainLayout'
 
 
@@ -77,14 +76,6 @@ export const router = createBrowserRouter([
       </Privateroute>
     ),
     children: [
-      {
-        index: true,
-        element: (
-          <Privateroute>
-            <Statistics />
-          </Privateroute>
-        ),
-      },
       {
         path: 'add-scholarship',
         element: (
