@@ -102,7 +102,7 @@ console.log(application)
           </button>
         )}
 
-        {/* PAY */}
+    
         {status === "pending" && paymentStatus === "unpaid" && (
           <button className="btn btn-xs bg-green-500 text-white">
             Pay
