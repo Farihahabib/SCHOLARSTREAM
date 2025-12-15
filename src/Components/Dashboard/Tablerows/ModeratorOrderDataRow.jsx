@@ -37,7 +37,7 @@ const handleCancel = async () => {
 
   return (
     <>
-      {/* TABLE ROW */}
+ 
       <tr>
         <td className="px-5 py-5 border-b bg-white text-sm">{studentName}</td>
         <td className="px-5 py-5 border-b bg-white text-sm">{studentEmail}</td>
