@@ -30,7 +30,6 @@ const UserDataRow = ({ user, onUpdateRole, onDelete }) => {
           </button>
         )}
 
-        {/* Demote to Customer if not already customer */}
         {role !== "Student" && (
           <button
             className="bg-yellow-500 text-white px-2 py-1 rounded"
