@@ -33,7 +33,7 @@ const Home = () => {
     queryKey: ["top-scholarships"],
     queryFn: async () => {
       const res = await axios.get(
-        "/allscholarships?sortBy=fees_asc&limit=6"
+        "https://backend-zeta-eight-65.vercel.app/allscholarships?sortBy=fees_asc&limit=6"
       );
       return res.data.scholarships;
     },

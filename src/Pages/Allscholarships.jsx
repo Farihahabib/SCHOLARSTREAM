@@ -23,7 +23,7 @@ const Allscholarships = () => {
       params.append('page', page);
       params.append('limit', limit);
 
-      const res = await axios.get(`/allscholarships?${params.toString()}`);
+      const res = await axios.get(`https://backend-zeta-eight-65.vercel.app/allscholarships?${params.toString()}`);
       return res.data;
     },
     keepPreviousData: true,
