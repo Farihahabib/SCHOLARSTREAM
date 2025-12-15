@@ -108,8 +108,6 @@ console.log(application)
             Pay
           </button>
         )}
-
-        {/* DELETE */}
         {status === "pending" && (
           <>
             <button
