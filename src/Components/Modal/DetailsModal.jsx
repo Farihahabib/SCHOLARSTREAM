@@ -4,7 +4,7 @@ const DetailsModal = ({ isOpen, closeModal, data }) => {
     console.log(data);
   return (
     <Dialog open={isOpen} onClose={closeModal} className="relative z-50">
-      {/* Backdrop */}
+   
       <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
 
       <div className="fixed inset-0 flex items-center justify-center p-4">
