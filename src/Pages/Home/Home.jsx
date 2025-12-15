@@ -3,8 +3,9 @@ import Banner from "../../Components/Banner";
 import Card from "../../Components/Home/Card";
 import Container from "../../Components/Shared/Container";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner";
-import useAxiosSecure from "../../Hooks/useAxiosSequire";
+
 import { motion } from "framer-motion";
+import axios from "axios";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -27,19 +28,17 @@ const cardVariants = {
 };
 
 const Home = () => {
-  const axiosSecure = useAxiosSecure();
 
   const { data: scholarships = [], isLoading } = useQuery({
     queryKey: ["top-scholarships"],
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        "/scholarships?sortBy=fees_asc&limit=6"
+      const res = await axios.get(
+        "/allscholarships?sortBy=fees_asc&limit=6"
       );
       return res.data.scholarships;
     },
   });
 
-  if (isLoading) return <LoadingSpinner />;
 
   return (
     <>

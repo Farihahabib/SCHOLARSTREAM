@@ -12,7 +12,7 @@ const Allscholarships = () => {
  const [sortBy, setSortBy] = useState('fees_asc');
   const [page, setPage] = useState(1);
   const limit = 8;
-const axiosSecure = useAxiosSecure();
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ['scholarships', search, countryFilter, sortBy, page],
     queryFn: async () => {
@@ -23,12 +23,11 @@ const axiosSecure = useAxiosSecure();
       params.append('page', page);
       params.append('limit', limit);
 
-      const res = await axiosSecure.get(`/scholarships?${params.toString()}`);
+      const res = await axios.get(`/allscholarships?${params.toString()}`);
       return res.data;
     },
     keepPreviousData: true,
   });
-
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>Error loading scholarships.</p>;
 
