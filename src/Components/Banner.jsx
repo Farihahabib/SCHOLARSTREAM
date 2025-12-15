@@ -6,7 +6,7 @@ const Banner = ({onSearch}) => {
   const handleSearch = (e) => {
     e?.preventDefault();
     if (onSearch) onSearch(query.trim());
-    // else console.log("Search query:", query.trim());
+
   };
     
     return (
