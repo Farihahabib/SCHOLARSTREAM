@@ -25,14 +25,11 @@ const Navbar = () => {
               <p className='text-3xl font-bold text-blue-950'>ScholarsStream</p>
               </div>
             </Link>
-            <div className='flex gap-2'>
-            <MyLink to='/' className="">
-            Home
-            </MyLink>
-            <MyLink to='/allscholarships'>
-           All Scholarships
-            </MyLink>
-            </div>
+           <div className='hidden md:flex gap-2'>
+  <MyLink to='/'>Home</MyLink>
+  <MyLink to='/allscholarships'>All Scholarships</MyLink>
+</div>
+
             {/* Dropdown Menu */}
             <div className='relative'>
               <div className='flex flex-row items-center gap-3'>
