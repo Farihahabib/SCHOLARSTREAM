@@ -10,10 +10,11 @@ The goal of this project is to simplify the scholarship application process whil
 
 ## 🌐 Live URL
 
-* **Frontend:** [https://your-frontend.vercel.app](https://your-frontend.vercel.app)
-* **Backend API:** [https://your-backend.vercel.app](https://your-backend.vercel.app)
+* **Frontend:** 
+https://scholarstream-394b2.web.app/
+* **Backend API:** 
+https://backend-zeta-eight-65.vercel.app/
 
-> ⚠️ Replace the URLs above with your actual deployed links.
 
 ---
 

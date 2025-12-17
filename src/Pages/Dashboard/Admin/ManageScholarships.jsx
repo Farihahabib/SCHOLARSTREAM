@@ -16,7 +16,7 @@ const { data = {}, isLoading } = useQuery({
   },
 });
 
-const scholarships = data.scholarships || [];
+const scholarships = data || [];
 //delete mutation
 const deleteMutation = useMutation({
   mutationFn: async (id) => {
