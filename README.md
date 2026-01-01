@@ -17,6 +17,9 @@ https://backend-zeta-eight-65.vercel.app/
 
 
 ---
+## 🖼️ Screenshot
+![ScholarStream Home](https://raw.githubusercontent.com/Farihahabib/Images/main/scholarstream-home.png)
+
 
 ## ✨ Key Features
 
