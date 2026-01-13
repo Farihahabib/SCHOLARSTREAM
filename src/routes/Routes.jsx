@@ -9,6 +9,8 @@ import AddScholarship from '../Pages/Dashboard/Admin/Addscholarship'
 import ManageUsers from '../pages/Dashboard/Admin/ManageUsers'
 import Profile from '../pages/Dashboard/Common/Profile'
 import MainLayout from '../Layouts/MainLayout'
+import TermsAndConditions from '../Pages/TermsAndConditions'
+import PrivacyPolicy from '../Pages/PrivacyPolicy'
 
 
 
@@ -70,6 +72,14 @@ export const router = createBrowserRouter([
         {
         path: '/contactus',
         element:<ContactUs />
+      },
+      {
+        path: '/terms-and-conditions',
+        element: <TermsAndConditions />
+      },
+      {
+        path: '/privacy-policy',
+        element: <PrivacyPolicy />
       },
     ],
   },

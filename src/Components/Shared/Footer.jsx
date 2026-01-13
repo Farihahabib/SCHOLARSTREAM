@@ -1,55 +1,224 @@
 import MyLink from "./MyLink"
+import { useState, useEffect } from "react"
+import { motion } from "framer-motion"
+import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, GraduationCap } from "lucide-react"
 
 const Footer = () => {
-  return (
-    <footer className="footer footer-horizontal footer-center bg-blue-900 text-white rounded p-10">
-  <nav className="grid grid-flow-col  gap-4">
-    <MyLink to='aboutus' className="link link-hover text-white ">About us</MyLink>
-    <MyLink to='contactus' className="link link-hover text-white ">Contact</MyLink>
-   
+  const [isDark, setIsDark] = useState(false)
 
-  </nav>
-  <nav>
-    <div className="grid grid-flow-col gap-4">
-      <a>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          className="fill-current">
-          <path
-            d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
-        </svg>
-      </a>
-      <a>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          className="fill-current">
-          <path
-            d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
-        </svg>
-      </a>
-      <a>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          className="fill-current">
-          <path
-            d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
-        </svg>
-      </a>
-    </div>
-  </nav>
-  <aside>
-    <p>Copyright © {new Date().getFullYear()} - All right reserved by SCHOLARSTREAM</p>
-  </aside>
-</footer>
+  // Listen for theme changes
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains('dark'))
+    }
+    
+    checkTheme()
+    
+    // Create observer to watch for class changes
+    const observer = new MutationObserver(checkTheme)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => observer.disconnect()
+  }, [])
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  return (
+    <motion.footer 
+      className={`relative overflow-hidden transition-all duration-300 ${
+        isDark 
+          ? 'bg-linear-to-br from-gray-900 via-blue-900 to-gray-900 border-gray-700' 
+          : 'bg-linear-to-br from-blue-900 via-indigo-900 to-purple-900 border-blue-800'
+      }`}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={containerVariants}
+    >
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-6 py-16">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          
+          {/* Brand Section */}
+          <motion.div className="lg:col-span-2" variants={itemVariants}>
+            <div className="flex items-center mb-6">
+              <div className={`p-3 rounded-full mr-4 ${isDark ? 'bg-blue-600' : 'bg-blue-500'}`}>
+                <GraduationCap className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-3xl font-bold text-white">ScholarStream</h3>
+            </div>
+            <p className={`text-lg mb-6 leading-relaxed ${isDark ? 'text-gray-300' : 'text-blue-100'}`}>
+              Empowering students worldwide to achieve their academic dreams through accessible scholarship opportunities and comprehensive support.
+            </p>
+            
+            {/* Contact Info */}
+            <div className="space-y-3">
+              <div className="flex items-center">
+                <Mail className={`w-5 h-5 mr-3 ${isDark ? 'text-blue-400' : 'text-blue-300'}`} />
+                <span className={isDark ? 'text-gray-300' : 'text-blue-100'}>support@scholarstream.com</span>
+              </div>
+              <div className="flex items-center">
+                <Phone className={`w-5 h-5 mr-3 ${isDark ? 'text-blue-400' : 'text-blue-300'}`} />
+                <span className={isDark ? 'text-gray-300' : 'text-blue-100'}>+1 (555) 123-4567</span>
+              </div>
+              <div className="flex items-center">
+                <MapPin className={`w-5 h-5 mr-3 ${isDark ? 'text-blue-400' : 'text-blue-300'}`} />
+                <span className={isDark ? 'text-gray-300' : 'text-blue-100'}>New York, NY 10001</span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Quick Links */}
+          <motion.div variants={itemVariants}>
+            <h4 className="text-xl font-semibold text-white mb-6">Quick Links</h4>
+            <nav className="space-y-3">
+              <MyLink to='/' className={`block transition-colors hover:text-blue-300 ${isDark ? 'text-gray-300' : 'text-blue-100'}`}>
+                Home
+              </MyLink>
+              <MyLink to='/allscholarships' className={`block transition-colors hover:text-blue-300 ${isDark ? 'text-gray-300' : 'text-blue-100'}`}>
+                All Scholarships
+              </MyLink>
+              <MyLink to='/aboutus' className={`block transition-colors hover:text-blue-300 ${isDark ? 'text-gray-300' : 'text-blue-100'}`}>
+                About Us
+              </MyLink>
+              <MyLink to='/contactus' className={`block transition-colors hover:text-blue-300 ${isDark ? 'text-gray-300' : 'text-blue-100'}`}>
+                Contact
+              </MyLink>
+            </nav>
+          </motion.div>
+
+          {/* Resources */}
+          <motion.div variants={itemVariants}>
+            <h4 className="text-xl font-semibold text-white mb-6">Legal & Support</h4>
+            <nav className="space-y-3">
+              <MyLink to='/terms-and-conditions' className={`block transition-colors hover:text-blue-300 ${isDark ? 'text-gray-300' : 'text-blue-100'}`}>
+                Terms & Conditions
+              </MyLink>
+              <MyLink to='/privacy-policy' className={`block transition-colors hover:text-blue-300 ${isDark ? 'text-gray-300' : 'text-blue-100'}`}>
+                Privacy Policy
+              </MyLink>
+              <button 
+                onClick={(e) => e.preventDefault()} 
+                className={`block text-left transition-colors hover:text-blue-300 cursor-default ${isDark ? 'text-gray-300' : 'text-blue-100'}`}
+              >
+                Success Stories
+              </button>
+              <button 
+                onClick={(e) => e.preventDefault()} 
+                className={`block text-left transition-colors hover:text-blue-300 cursor-default ${isDark ? 'text-gray-300' : 'text-blue-100'}`}
+              >
+                FAQ
+              </button>
+            </nav>
+          </motion.div>
+        </div>
+
+        {/* Social Media & Stats */}
+        <motion.div 
+          className="border-t border-white/20 pt-8"
+          variants={itemVariants}
+        >
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            
+            {/* Social Media */}
+            <div className="flex items-center space-x-6 mb-6 md:mb-0">
+              <span className={`text-lg font-medium ${isDark ? 'text-gray-300' : 'text-blue-100'}`}>Follow Us:</span>
+              <div className="flex space-x-4">
+                <motion.button 
+                  onClick={(e) => e.preventDefault()}
+                  className={`p-3 rounded-full transition-all duration-300 cursor-default ${isDark ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'}`}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Facebook className="w-5 h-5 text-white" />
+                </motion.button>
+                <motion.button 
+                  onClick={(e) => e.preventDefault()}
+                  className={`p-3 rounded-full transition-all duration-300 cursor-default ${isDark ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'}`}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Twitter className="w-5 h-5 text-white" />
+                </motion.button>
+                <motion.button 
+                  onClick={(e) => e.preventDefault()}
+                  className={`p-3 rounded-full transition-all duration-300 cursor-default ${isDark ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'}`}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Linkedin className="w-5 h-5 text-white" />
+                </motion.button>
+                <motion.button 
+                  onClick={(e) => e.preventDefault()}
+                  className={`p-3 rounded-full transition-all duration-300 cursor-default ${isDark ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'}`}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Instagram className="w-5 h-5 text-white" />
+                </motion.button>
+              </div>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="flex space-x-8">
+              <div className="text-center">
+                <div className={`text-2xl font-bold ${isDark ? 'text-blue-400' : 'text-blue-200'}`}>1000+</div>
+                <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-blue-300'}`}>Scholarships</div>
+              </div>
+              <div className="text-center">
+                <div className={`text-2xl font-bold ${isDark ? 'text-purple-400' : 'text-purple-200'}`}>5000+</div>
+                <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-blue-300'}`}>Students Helped</div>
+              </div>
+              <div className="text-center">
+                <div className={`text-2xl font-bold ${isDark ? 'text-green-400' : 'text-green-200'}`}>$10M+</div>
+                <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-blue-300'}`}>Awarded</div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Copyright */}
+        <motion.div 
+          className="border-t border-white/20 pt-6 mt-8 text-center"
+          variants={itemVariants}
+        >
+          <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-blue-200'}`}>
+            © {new Date().getFullYear()} ScholarStream. All rights reserved. | 
+            <MyLink to='/privacy-policy' className="hover:text-blue-300 ml-1">Privacy Policy</MyLink> | 
+            <MyLink to='/terms-and-conditions' className="hover:text-blue-300 ml-1">Terms & Conditions</MyLink>
+          </p>
+        </motion.div>
+      </div>
+    </motion.footer>
   )
 }
 

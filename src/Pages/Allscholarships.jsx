@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from '../Components/Shared/Container.jsx';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
@@ -9,9 +9,28 @@ import useAxiosSecure from '../Hooks/useAxiosSequire.jsx';
 const Allscholarships = () => {
   const [search, setSearch] = useState('');
   const [countryFilter, setCountryFilter] = useState('');
- const [sortBy, setSortBy] = useState('fees_asc');
+  const [sortBy, setSortBy] = useState('fees_asc');
   const [page, setPage] = useState(1);
+  const [isDark, setIsDark] = useState(false);
   const limit = 8;
+
+  // Listen for theme changes
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains('dark'))
+    }
+    
+    checkTheme()
+    
+    // Create observer to watch for class changes
+    const observer = new MutationObserver(checkTheme)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => observer.disconnect()
+  }, [])
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['scholarships', search, countryFilter, sortBy, page],
@@ -36,7 +55,9 @@ const Allscholarships = () => {
 
   return (
     <Container>
-      <h2 className="text-center font-semibold text-blue-900 border-b-2 mx-auto w-30">All Scholarships</h2>
+      <h2 className={`text-center font-semibold border-b-2 mx-auto w-30 text-2xl py-4 mb-6 ${
+        isDark ? 'text-blue-400 border-blue-400' : 'text-blue-900 border-blue-900'
+      }`}>All Scholarships</h2>
 
       {/* Filters */}
       <div className="flex flex-col md:flex-row justify-between gap-4 my-5">
@@ -45,11 +66,19 @@ const Allscholarships = () => {
           placeholder="Search by University Name"
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="input input-bordered w-full"
+          className={`w-full px-4 py-3 border rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 ${
+            isDark 
+              ? 'border-gray-600 bg-gray-700 text-gray-100 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500' 
+              : 'border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:ring-blue-300 focus:border-blue-300'
+          }`}
         />
 
         <select
-          className="select select-bordered w-full md:w-1/4"
+          className={`w-full md:w-1/4 px-4 py-3 border rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 ${
+            isDark 
+              ? 'border-gray-600 bg-gray-700 text-gray-100 focus:ring-blue-500 focus:border-blue-500' 
+              : 'border-gray-300 bg-white text-gray-900 focus:ring-blue-300 focus:border-blue-300'
+          }`}
           value={countryFilter}
           onChange={e => setCountryFilter(e.target.value)}
         >
@@ -57,15 +86,18 @@ const Allscholarships = () => {
           {uniqueCountries.map((c, idx) => <option key={idx} value={c}>{c}</option>)}
         </select>
 
-      <select
-  className="select select-bordered w-full md:w-1/4"
-  value={sortBy}
-  onChange={(e) => setSortBy(e.target.value)}
->
-  <option value="fees_asc">Application Fees (Low → High)</option>
-  <option value="fees_desc">Application Fees (High → Low)</option>
-</select>
-
+        <select
+          className={`w-full md:w-1/4 px-4 py-3 border rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 ${
+            isDark 
+              ? 'border-gray-600 bg-gray-700 text-gray-100 focus:ring-blue-500 focus:border-blue-500' 
+              : 'border-gray-300 bg-white text-gray-900 focus:ring-blue-300 focus:border-blue-300'
+          }`}
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+        >
+          <option value="fees_asc">Application Fees (Low → High)</option>
+          <option value="fees_desc">Application Fees (High → Low)</option>
+        </select>
       </div>
 
       {/* Scholarships Grid */}
@@ -73,14 +105,20 @@ const Allscholarships = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-9 mt-15">
           {scholarships.map(scholarship => <Card key={scholarship._id} scholarship={scholarship} />)}
         </div>
-      ) : <p className="text-center text-gray-500 my-10">No Scholarships Found</p>}
+      ) : <p className={`text-center my-10 text-lg ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>No Scholarships Found</p>}
 
       {/* Pagination */}
       <div className="flex justify-center gap-2 my-6">
         {[...Array(pages)].map((_, idx) => (
           <button
             key={idx}
-            className={`btn btn-sm ${page === idx + 1 ? 'btn-primary' : 'btn-outline'}`}
+            className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 ${
+              page === idx + 1 
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/25' 
+                : isDark 
+                  ? 'bg-gray-700 text-gray-200 hover:bg-gray-600 border border-gray-600' 
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300 border border-gray-300'
+            }`}
             onClick={() => setPage(idx + 1)}
           >
             {idx + 1}

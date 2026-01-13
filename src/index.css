@@ -1,16 +1,129 @@
 @import 'tailwindcss';
 @plugin "daisyui";
-.btn{
-   background-color: #172554 ;
+
+/* Root variables for theme colors */
+:root {
+  --background: 255 255 255;
+  --foreground: 17 24 39;
+  --card: 255 255 255;
+  --card-foreground: 17 24 39;
+  --primary: 59 130 246;
+  --primary-foreground: 255 255 255;
+  --secondary: 243 244 246;
+  --secondary-foreground: 17 24 39;
+  --muted: 243 244 246;
+  --muted-foreground: 107 114 128;
+  --accent: 243 244 246;
+  --accent-foreground: 17 24 39;
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --border: 229 231 235;
+  --input: 229 231 235;
+  --ring: 59 130 246;
+}
+
+.dark {
+  --background: 17 24 39;
+  --foreground: 249 250 251;
+  --card: 31 41 55;
+  --card-foreground: 249 250 251;
+  --primary: 96 165 250;
+  --primary-foreground: 17 24 39;
+  --secondary: 55 65 81;
+  --secondary-foreground: 249 250 251;
+  --muted: 55 65 81;
+  --muted-foreground: 156 163 175;
+  --accent: 55 65 81;
+  --accent-foreground: 249 250 251;
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --border: 55 65 81;
+  --input: 55 65 81;
+  --ring: 96 165 250;
+}
+
+/* Base styles */
+* {
+  border-color: rgb(var(--border));
+}
+
+body {
+  background-color: rgb(var(--background));
+  color: rgb(var(--foreground));
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode styles */
+html.dark {
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
+}
+
+/* Navbar styles */
+.navbar-light {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgb(var(--border));
+}
+
+.navbar-dark {
+  background-color: rgba(31, 41, 55, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgb(var(--border));
+}
+
+/* Card styles */
+.card-light {
+  background-color: rgb(var(--card));
+  border: 1px solid rgb(var(--border));
+  color: rgb(var(--card-foreground));
+}
+
+.card-dark {
+  background-color: rgb(var(--card));
+  border: 1px solid rgb(var(--border));
+  color: rgb(var(--card-foreground));
+}
+
+/* Custom button styles */
+.btn {
+   background-color: rgb(var(--primary));
    border: none;
-   border-radius: 5px;
+   border-radius: 0.375rem;
    cursor: pointer;
    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    padding: o.5rem 1rem;
-    color: white;
+   text-decoration: none;
+   display: inline-block;
+   padding: 0.5rem 1rem;
+   color: rgb(var(--primary-foreground));
+   transition: all 0.2s ease;
 }
-.hover:hover{
-border-radius: 30px;
+
+.btn:hover {
+   opacity: 0.9;
+   transform: translateY(-1px);
+}
+
+/* Utility classes for theme-aware styling */
+.bg-background {
+  background-color: rgb(var(--background));
+}
+
+.text-foreground {
+  color: rgb(var(--foreground));
+}
+
+.bg-card {
+  background-color: rgb(var(--card));
+}
+
+.text-card-foreground {
+  color: rgb(var(--card-foreground));
+}
+
+.border-border {
+  border-color: rgb(var(--border));
 }

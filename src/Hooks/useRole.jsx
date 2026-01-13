@@ -11,9 +11,17 @@ const useRole = () => {
     enabled: !loading && !!user?.email,
     queryKey: ['role', user?.email],
     queryFn: async () => {
-      const result = await axiosSecure(`/user/role/`)
-      console.log(result.data)
-      return result.data.role
+      try {
+        const result = await axiosSecure(`/user/role/`)
+        console.log('Role API Response:', result.data)
+        
+        // Return the role or default to 'Student' if no role is found
+        return result.data?.role || 'Student'
+      } catch (error) {
+        console.error('Error fetching user role:', error)
+        // Return default role if there's an error
+        return 'Student'
+      }
     },
   })
 
